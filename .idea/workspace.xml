@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.eslintignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.husky/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.husky/commit-msg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.husky/post-merge" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.husky/pre-commit" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.prettierignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commitlint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lint-staged.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prettier.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api-gateway/registration.api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aws/certificate/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aws/route53/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/handlers/functions/create-tenant-arecord.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/handlers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/handlers/register.handler.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/helpers/helpers.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/helpers/helpers.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/helpers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lambdas/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lambdas/registration.lambda.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test-support/jest-setup.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/add-cors-header/add-cors-header.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/add-cors-header/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/error-has-message/error-has-message.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/error-has-message/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/get-env/get-env.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/get-env/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tsconfig.eslint.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/memba-tenants-component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/memba-tenants-component-stack.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/memba-tenants-component.test.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2QxU72DPvOYyVgBcc84y8wM1LTM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/michaelatherton/Development/memba/memba-tenants-component",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="" />
+      <created>1686294554400</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686294554400</updated>
+      <workItem from="1686294555861" duration="861000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
