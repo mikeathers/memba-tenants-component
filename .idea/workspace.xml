@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api-gateway/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api-gateway/registration.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/register.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lambdas/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambdas/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lambdas/registration.lambda.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/memba-tenants-component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +54,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686294554400</updated>
-      <workItem from="1686294555861" duration="1981000" />
+      <workItem from="1686294555861" duration="4114000" />
     </task>
     <servers />
   </component>
