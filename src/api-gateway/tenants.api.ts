@@ -7,22 +7,22 @@ import {ICertificate} from 'aws-cdk-lib/aws-certificatemanager'
 import {ServicePrincipal} from 'aws-cdk-lib/aws-iam'
 import {ApiGateway} from 'aws-cdk-lib/aws-route53-targets'
 
-interface RegistrationApiProps {
+interface TenantsApiProps {
   scope: Construct
   stage: string
   certificate: ICertificate
   hostedZone: IHostedZone
-  registrationLambda: IFunction
+  tenantsLambda: IFunction
 }
 
-export class RegistrationApi {
-  constructor(props: RegistrationApiProps) {
-    this.createRegistrationApi(props)
+export class TenantsApi {
+  constructor(props: TenantsApiProps) {
+    this.createTenantsApi(props)
   }
 
-  private createRegistrationApi(props: RegistrationApiProps) {
-    const {scope, stage, certificate, registrationLambda, hostedZone} = props
-    const restApiName = `${CONFIG.STACK_PREFIX} Registration Api (${stage})`
+  private createTenantsApi(props: TenantsApiProps) {
+    const {scope, stage, certificate, tenantsLambda, hostedZone} = props
+    const restApiName = `${CONFIG.STACK_PREFIX}Api (${stage})`
 
     const optionsWithCors: CorsOptions = {
       allowOrigins: Cors.ALL_ORIGINS,
@@ -37,8 +37,7 @@ export class RegistrationApi {
       allowCredentials: true,
     }
 
-    const domainName =
-      stage === 'prod' ? CONFIG.REGISTRATION_API_URL : CONFIG.DEV_REGISTRATION_API_URL
+    const domainName = stage === 'prod' ? CONFIG.API_URL : CONFIG.DEV_API_URL
 
     const api = new RestApi(scope, restApiName, {
       restApiName,
@@ -48,15 +47,15 @@ export class RegistrationApi {
       },
     })
 
-    registrationLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
+    tenantsLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
 
     api.root.addCorsPreflight(optionsWithCors)
 
     api.root
       .addResource('create-a-record')
-      .addMethod('POST', new LambdaIntegration(registrationLambda))
+      .addMethod('POST', new LambdaIntegration(tenantsLambda))
 
-    new ARecord(scope, `${CONFIG.STACK_PREFIX}RegistrationApiAliasRecord`, {
+    new ARecord(scope, `${CONFIG.STACK_PREFIX}ApiAliasRecord`, {
       recordName: domainName,
       zone: hostedZone,
       target: RecordTarget.fromAlias(new ApiGateway(api)),

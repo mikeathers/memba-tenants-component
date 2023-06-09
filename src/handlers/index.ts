@@ -1,1 +1,1 @@
-export * from './register.handler'
+export * from './tenants.handler'

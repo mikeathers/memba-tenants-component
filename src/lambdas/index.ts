@@ -1,1 +1,1 @@
-export * from './registration.lambda'
+export * from './tenants.lambda'

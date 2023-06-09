@@ -9,12 +9,12 @@ interface ConfigProps {
   FRONTEND_BASE_URL_PROD: string
   DOMAIN_NAME: string
   DEV_DOMAIN_NAME: string
-  REGISTRATION_API_URL: string
-  DEV_REGISTRATION_API_URL: string
+  API_URL: string
+  DEV_API_URL: string
 }
 
 const CONFIG: ConfigProps = {
-  STACK_PREFIX: 'Memba',
+  STACK_PREFIX: 'MembaTenants',
   REGION: 'eu-west-2',
   AWS_ACCOUNT_ID_PROD: '635800996936',
   AWS_ACCOUNT_ID_DEV: '544312030237',
@@ -24,8 +24,8 @@ const CONFIG: ConfigProps = {
   FRONTEND_BASE_URL_PROD: 'https://memba.co.uk',
   DOMAIN_NAME: 'memba.co.uk',
   DEV_DOMAIN_NAME: 'dev.memba.co.uk',
-  REGISTRATION_API_URL: 'registration.memba.co.uk',
-  DEV_REGISTRATION_API_URL: 'registration.dev.memba.co.uk',
+  API_URL: 'tenants.memba.co.uk',
+  DEV_API_URL: 'tenants.dev.memba.co.uk',
 }
 
 export default CONFIG

@@ -8,22 +8,22 @@ import {Effect, PolicyStatement} from 'aws-cdk-lib/aws-iam'
 
 import CONFIG from '../config'
 
-interface RegistrationLambdaProps {
+interface TenantsLambdaProps {
   scope: Construct
   stage: string
   hostedZoneId: string
 }
 
-export class RegistrationLambda {
-  public registrationLambda: IFunction
+export class TenantsLambda {
+  public tenantsLambda: IFunction
 
-  constructor(props: RegistrationLambdaProps) {
-    this.registrationLambda = this.createRegistrationLambda(props)
+  constructor(props: TenantsLambdaProps) {
+    this.tenantsLambda = this.createTenantsLambda(props)
   }
 
-  private createRegistrationLambda(props: RegistrationLambdaProps): NodejsFunction {
+  private createTenantsLambda(props: TenantsLambdaProps): NodejsFunction {
     const {scope, stage, hostedZoneId} = props
-    const lambdaName = `${CONFIG.STACK_PREFIX}RegistrationLambda-${stage}`
+    const lambdaName = `${CONFIG.STACK_PREFIX}Lambda-${stage}`
     const accountId =
       stage === 'prod' ? CONFIG.AWS_ACCOUNT_ID_PROD : CONFIG.AWS_ACCOUNT_ID_DEV
 
@@ -49,12 +49,12 @@ export class RegistrationLambda {
       retryAttempts: 0,
     }
 
-    const registrationLambda = new NodejsFunction(scope, lambdaName, {
+    const tenantsLambda = new NodejsFunction(scope, lambdaName, {
       entry: join(__dirname, '../handlers/index.ts'),
       ...lambdaProps,
     })
 
-    registrationLambda.addToRolePolicy(
+    tenantsLambda.addToRolePolicy(
       new PolicyStatement({
         actions: ['route53:ChangeResourceRecordSets'],
         resources: [`arn:aws:route53:::hostedzone/${hostedZoneId}`],
@@ -62,7 +62,7 @@ export class RegistrationLambda {
       }),
     )
 
-    registrationLambda.addToRolePolicy(
+    tenantsLambda.addToRolePolicy(
       new PolicyStatement({
         actions: ['acm:RequestCertificate'],
         resources: [`arn:aws:acm:us-east-1:${accountId}:certificate/*`],
@@ -70,6 +70,6 @@ export class RegistrationLambda {
       }),
     )
 
-    return registrationLambda
+    return tenantsLambda
   }
 }
