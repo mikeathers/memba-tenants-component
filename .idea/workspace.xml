@@ -2,9 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/aws/dynamodb/get-by-primary-key.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aws/dynamodb/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aws/dynamodb/query-by-secondary-key.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/databases/databases.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/databases/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/events/publishers/create-tenant-admin-and-user-group.publisher.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/events/publishers/tenant-registered.publisher.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/handlers/functions/create-tenant-in-db.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/validators/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/validators/tenant.validator.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/memba-tenants-component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test-support/jest-setup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test-support/jest-setup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,19 +49,26 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/michaelatherton/Development/memba/memba-tenants-component/src",
+    "last_opened_file_path": "/Users/michaelatherton/Development/memba/memba-tenants-component/src/aws",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/prettier",
     "ts.external.directory.path": "/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/aws" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/events/publishers" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -54,7 +80,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686294554400</updated>
-      <workItem from="1686294555861" duration="4114000" />
+      <workItem from="1686294555861" duration="10852000" />
+      <workItem from="1686411229194" duration="11754000" />
     </task>
     <servers />
   </component>

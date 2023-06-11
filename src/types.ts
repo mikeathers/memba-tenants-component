@@ -3,6 +3,17 @@ import {AWSError, DynamoDB} from 'aws-sdk'
 
 export type TenantDetails = {
   tenantName: string
+  tier: string
+}
+
+export type RegisterTenantRequest = {
+  id: string
+  name: string
+  tier: string
+}
+
+export type CreateTenantAdminAndUserGroupRequest = {
+  tenantName: string
 }
 
 export type CreateAccountRequest = {

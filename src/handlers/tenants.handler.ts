@@ -16,7 +16,7 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
   try {
     switch (event.httpMethod) {
       case 'POST': {
-        if (event.body) {
+        if (event.path.includes('register-tenant') && event.body) {
           const tenantDetails = JSON.parse(event.body) as TenantDetails
           const response = await createTenantARecord({
             tenantName: tenantDetails.tenantName,

@@ -52,7 +52,7 @@ export class TenantsApi {
     api.root.addCorsPreflight(optionsWithCors)
 
     api.root
-      .addResource('create-a-record')
+      .addResource('register-tenant')
       .addMethod('POST', new LambdaIntegration(tenantsLambda))
 
     new ARecord(scope, `${CONFIG.STACK_PREFIX}ApiAliasRecord`, {

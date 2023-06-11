@@ -1,10 +1,12 @@
 import {Construct} from 'constructs'
-import {Stack, StackProps} from 'aws-cdk-lib'
+import {Duration, Stack, StackProps} from 'aws-cdk-lib'
 import CONFIG from './config'
 import {getHostedZone} from './aws/route53'
 import {createCertificate} from './aws/certificate'
 import {TenantsLambda} from './lambdas'
 import {TenantsApi} from './api-gateway'
+import {Databases} from './databases'
+import {Queue} from 'aws-cdk-lib/aws-sqs'
 
 interface MembaTenantsComponentStackProps extends StackProps {
   stage: string
@@ -15,8 +17,11 @@ export class MembaTenantsComponentStack extends Stack {
     super(scope, id, props)
     const {stage} = props
 
-    const hostedZoneUrl = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
+    const devEventBusArn = `arn:aws:events:${CONFIG.REGION}:${CONFIG.AWS_ACCOUNT_ID_DEV}:event-bus/${CONFIG.SHARED_EVENT_BUS_NAME}-${stage}`
+    const prodEventBusArn = `arn:aws:events:${CONFIG.REGION}:${CONFIG.AWS_ACCOUNT_ID_PROD}:event-bus/${CONFIG.SHARED_EVENT_BUS_NAME}-${stage}`
+    const eventBusArn = stage === 'prod' ? prodEventBusArn : devEventBusArn
 
+    const hostedZoneUrl = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
     const hostedZone = getHostedZone({scope: this, domainName: hostedZoneUrl})
 
     const apiCertificate = createCertificate({
@@ -27,10 +32,24 @@ export class MembaTenantsComponentStack extends Stack {
       region: 'eu-west-2',
     })
 
+    const database = new Databases(
+      this,
+      `${CONFIG.STACK_PREFIX}Databases-${stage}`,
+      stage,
+    )
+
+    const deadLetterQueue = new Queue(this, `${CONFIG.STACK_PREFIX}DLQ-${stage}`, {
+      retentionPeriod: Duration.days(7),
+      queueName: `${CONFIG.STACK_PREFIX}DLQ-${stage}`,
+    })
+
     const {tenantsLambda} = new TenantsLambda({
       scope: this,
       stage,
       hostedZoneId: hostedZone.hostedZoneId,
+      table: database.tenantsTable,
+      deadLetterQueue,
+      eventBusArn,
     })
 
     new TenantsApi({

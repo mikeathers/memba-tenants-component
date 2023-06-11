@@ -7,11 +7,16 @@ import {Construct} from 'constructs'
 import {Effect, PolicyStatement} from 'aws-cdk-lib/aws-iam'
 
 import CONFIG from '../config'
+import {Queue} from 'aws-cdk-lib/aws-sqs'
+import {ITable} from 'aws-cdk-lib/aws-dynamodb'
 
 interface TenantsLambdaProps {
   scope: Construct
   stage: string
+  table: ITable
   hostedZoneId: string
+  eventBusArn: string
+  deadLetterQueue: Queue
 }
 
 export class TenantsLambda {
@@ -22,7 +27,7 @@ export class TenantsLambda {
   }
 
   private createTenantsLambda(props: TenantsLambdaProps): NodejsFunction {
-    const {scope, stage, hostedZoneId} = props
+    const {scope, stage, hostedZoneId, table, eventBusArn, deadLetterQueue} = props
     const lambdaName = `${CONFIG.STACK_PREFIX}Lambda-${stage}`
     const accountId =
       stage === 'prod' ? CONFIG.AWS_ACCOUNT_ID_PROD : CONFIG.AWS_ACCOUNT_ID_DEV
@@ -30,6 +35,9 @@ export class TenantsLambda {
     const lambdaProps: NodejsFunctionProps = {
       functionName: lambdaName,
       environment: {
+        PRIMARY_KEY: 'id',
+        TABLE_NAME: table.tableName,
+        EVENT_BUS_ARN: eventBusArn,
         HOSTED_ZONE_ID: hostedZoneId,
         STAGE: stage,
       },
@@ -46,6 +54,8 @@ export class TenantsLambda {
         sourceMap: true,
       },
       depsLockFilePath: join(__dirname, '..', '..', 'yarn.lock'),
+      deadLetterQueueEnabled: true,
+      deadLetterQueue,
       retryAttempts: 0,
     }
 
@@ -53,6 +63,8 @@ export class TenantsLambda {
       entry: join(__dirname, '../handlers/index.ts'),
       ...lambdaProps,
     })
+
+    table.grantReadWriteData(tenantsLambda)
 
     tenantsLambda.addToRolePolicy(
       new PolicyStatement({
