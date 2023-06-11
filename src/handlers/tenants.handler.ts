@@ -1,7 +1,11 @@
+import {DynamoDB} from 'aws-sdk'
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from 'aws-lambda'
+
 import {HttpStatusCode, TenantDetails} from '../types'
 import {addCorsHeader, errorHasMessage} from '../utils'
-import {createTenantARecord} from './functions/create-tenant-arecord'
+import {registerTenant} from './functions/register-tenant'
+
+const dbClient = new DynamoDB.DocumentClient()
 
 async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   console.log('request:', JSON.stringify(event, null, 2))
@@ -17,9 +21,9 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
     switch (event.httpMethod) {
       case 'POST': {
         if (event.path.includes('register-tenant') && event.body) {
-          const tenantDetails = JSON.parse(event.body) as TenantDetails
-          const response = await createTenantARecord({
-            tenantName: tenantDetails.tenantName,
+          const response = await registerTenant({
+            event,
+            dbClient,
             hostedZoneId: process.env.HOSTED_ZONE_ID ?? '',
             stage: process.env.STAGE ?? '',
           })

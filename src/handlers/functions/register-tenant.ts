@@ -14,12 +14,11 @@ interface RegisterTenantProps {
   hostedZoneId: string
   stage: string
   dbClient: DynamoDB.DocumentClient
-  authenticatedUserId: string
   event: APIGatewayProxyEvent
 }
 
 export const registerTenant = async (props: RegisterTenantProps) => {
-  const {event, hostedZoneId, stage, authenticatedUserId, dbClient} = props
+  const {event, hostedZoneId, stage, dbClient} = props
 
   const tableName = process.env.TABLE_NAME ?? ''
 
