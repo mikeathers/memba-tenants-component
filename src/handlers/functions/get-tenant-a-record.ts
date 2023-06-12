@@ -10,7 +10,6 @@ export const getTenantARecord = async (props: GetTenantARecordProps) => {
   const {hostedZoneId, tenantName, route53Client} = props
   const params = {
     HostedZoneId: hostedZoneId,
-    StartRecordType: 'A',
   }
 
   const command = new ListResourceRecordSetsCommand(params)
