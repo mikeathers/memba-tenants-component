@@ -10,10 +10,18 @@ export type RegisterTenantRequest = {
   id: string
   name: string
   tier: string
+  tenantAdminFirstName: string
+  tenantAdminLastName: string
+  tenantAdminEmail: string
+  tenantAdminPassword: string
 }
 
 export type CreateTenantAdminAndUserGroupRequest = {
   tenantName: string
+  tenantAdminFirstName: string
+  tenantAdminLastName: string
+  tenantAdminEmail: string
+  tenantAdminPassword: string
 }
 
 export type CreateAccountRequest = {

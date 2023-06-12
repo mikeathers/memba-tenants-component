@@ -27,6 +27,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   if (event.body) {
     const item = JSON.parse(event.body) as RegisterTenantRequest
     item.id = uuidv4()
+
     validateRegisterTenantRequest(item)
 
     const tenantAlreadyExists = await queryBySecondaryKey({
@@ -55,13 +56,20 @@ export const registerTenant = async (props: RegisterTenantProps) => {
       }
     }
 
-    await createTenantInDb({dbClient, item, tableName})
+    const {tenantAdminPassword, ...rest} = item
+    await createTenantInDb({dbClient, item: {...rest}, tableName})
 
     await createTenantARecord({tenantName: item.name, hostedZoneId, stage, route53Client})
 
-    await publishCreateTenantAdminAndUserGroupEvent({tenantName: item.name})
+    await publishCreateTenantAdminAndUserGroupEvent({
+      tenantAdminPassword,
+      tenantAdminEmail: item.tenantAdminEmail,
+      tenantName: item.name,
+      tenantAdminFirstName: item.tenantAdminFirstName,
+      tenantAdminLastName: item.tenantAdminLastName,
+    })
 
-    await publishTenantRegisteredEvent(item)
+    await publishTenantRegisteredEvent({...rest})
 
     return {
       body: {
