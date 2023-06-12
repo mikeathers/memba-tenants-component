@@ -1,27 +1,27 @@
 import {PromiseResult} from 'aws-sdk/lib/request'
 import {AWSError, DynamoDB} from 'aws-sdk'
 
-export type TenantDetails = {
-  tenantName: string
-  tier: string
-}
-
 export type RegisterTenantRequest = {
   id: string
   name: string
   tier: string
-  tenantAdminFirstName: string
-  tenantAdminLastName: string
-  tenantAdminEmail: string
-  tenantAdminPassword: string
+  firstName: string
+  lastName: string
+  emailAddress: string
+  password: string
+  addressLineOne: string
+  addressLineTwo: string
+  doorNumber: string
+  townCity: string
+  postCode: string
 }
 
 export type CreateTenantAdminAndUserGroupRequest = {
   tenantName: string
-  tenantAdminFirstName: string
-  tenantAdminLastName: string
-  tenantAdminEmail: string
-  tenantAdminPassword: string
+  firstName: string
+  lastName: string
+  emailAddress: string
+  password: string
 }
 
 export type CreateAccountRequest = {

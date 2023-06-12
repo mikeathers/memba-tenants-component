@@ -5,7 +5,7 @@ import {HttpStatusCode, RegisterTenantRequest} from '../../types'
 import {validateRegisterTenantRequest} from '../../validators/tenant.validator'
 import {queryBySecondaryKey} from '../../aws/dynamodb'
 import {createTenantARecord} from './create-tenant-arecord'
-import {publishTenantRegisteredEvent} from '../../events/publishers/tenant-registered.publisher'
+import {publishTenantRegisteredLogEvent} from '../../events/publishers/tenant-registered.publisher'
 import {publishCreateTenantAdminAndUserGroupEvent} from '../../events/publishers/create-tenant-admin-and-user-group.publisher'
 import {createTenantInDb} from './create-tenant-in-db'
 import {Route53Client} from '@aws-sdk/client-route-53'
@@ -24,65 +24,67 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   const tableName = process.env.TABLE_NAME ?? ''
 
-  if (event.body) {
-    const item = JSON.parse(event.body) as RegisterTenantRequest
-    item.id = uuidv4()
-
-    validateRegisterTenantRequest(item)
-
-    const tenantAlreadyExists = await queryBySecondaryKey({
-      queryKey: 'name',
-      queryValue: item.name,
-      tableName,
-      dbClient,
-    })
-
-    const tenantARecordAlreadyExists = await getTenantARecord({
-      route53Client,
-      tenantName: item.name,
-      hostedZoneId,
-    })
-
-    if (
-      tenantAlreadyExists &&
-      tenantAlreadyExists.length > 0 &&
-      tenantARecordAlreadyExists
-    ) {
-      return {
-        body: {
-          message: 'Tenant already exists',
-        },
-        statusCode: HttpStatusCode.BAD_REQUEST,
-      }
-    }
-
-    const {tenantAdminPassword, ...rest} = item
-    await createTenantInDb({dbClient, item: {...rest}, tableName})
-
-    await createTenantARecord({tenantName: item.name, hostedZoneId, stage, route53Client})
-
-    await publishCreateTenantAdminAndUserGroupEvent({
-      tenantAdminPassword,
-      tenantAdminEmail: item.tenantAdminEmail,
-      tenantName: item.name,
-      tenantAdminFirstName: item.tenantAdminFirstName,
-      tenantAdminLastName: item.tenantAdminLastName,
-    })
-
-    await publishTenantRegisteredEvent({...rest})
-
+  if (!event.body) {
     return {
       body: {
-        message: 'Tenant created successfully!',
-        result: item,
+        message: 'The event is missing a body and cannot be parsed.',
       },
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.INTERNAL_SERVER,
     }
   }
+
+  const item = JSON.parse(event.body) as RegisterTenantRequest
+  item.id = uuidv4()
+
+  validateRegisterTenantRequest(item)
+
+  const tenantAlreadyExists = await queryBySecondaryKey({
+    queryKey: 'name',
+    queryValue: item.name,
+    tableName,
+    dbClient,
+  })
+
+  const tenantARecordAlreadyExists = await getTenantARecord({
+    route53Client,
+    tenantName: item.name,
+    hostedZoneId,
+  })
+
+  if (
+    tenantAlreadyExists &&
+    tenantAlreadyExists.length > 0 &&
+    tenantARecordAlreadyExists
+  ) {
+    return {
+      body: {
+        message: 'Tenant already exists',
+      },
+      statusCode: HttpStatusCode.BAD_REQUEST,
+    }
+  }
+
+  const {password, ...rest} = item
+
+  await createTenantInDb({dbClient, item: {...rest}, tableName})
+
+  await createTenantARecord({tenantName: item.name, hostedZoneId, stage, route53Client})
+
+  await publishCreateTenantAdminAndUserGroupEvent({
+    password,
+    emailAddress: item.emailAddress,
+    tenantName: item.name,
+    firstName: item.firstName,
+    lastName: item.lastName,
+  })
+
+  await publishTenantRegisteredLogEvent({...rest})
+
   return {
     body: {
-      message: 'The event is missing a body and cannot be parsed.',
+      message: 'Tenant created successfully!',
+      result: item,
     },
-    statusCode: HttpStatusCode.INTERNAL_SERVER,
+    statusCode: HttpStatusCode.CREATED,
   }
 }

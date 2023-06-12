@@ -13,16 +13,16 @@ export const validateRegisterTenantRequest = (arg: RegisterTenantRequest): void 
   if (!arg.id) {
     throw new MissingFieldError('Value for Id required!')
   }
-  if (!arg.tenantAdminLastName) {
-    throw new MissingFieldError('Value for TenantAdminLastName required!')
+  if (!arg.lastName) {
+    throw new MissingFieldError('Value for lastName required!')
   }
-  if (!arg.tenantAdminFirstName) {
-    throw new MissingFieldError('Value for tenantAdminFirstName required!')
+  if (!arg.firstName) {
+    throw new MissingFieldError('Value for firstName required!')
   }
-  if (!arg.tenantAdminEmail) {
-    throw new MissingFieldError('Value for tenantAdminEmail required!')
+  if (!arg.emailAddress) {
+    throw new MissingFieldError('Value for emailAddress required!')
   }
-  if (!arg.tenantAdminPassword) {
-    throw new MissingFieldError('Value for tenantAdminPassword required!')
+  if (!arg.password) {
+    throw new MissingFieldError('Value for password required!')
   }
 }
