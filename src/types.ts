@@ -16,12 +16,11 @@ export type RegisterTenantRequest = {
   postCode: string
 }
 
-export type CreateTenantAdminAndUserGroupRequest = {
+export type CreateTenantAdminAndUserGroupRequest = Omit<
+  RegisterTenantRequest,
+  'id' | 'name' | 'tier'
+> & {
   tenantName: string
-  firstName: string
-  lastName: string
-  emailAddress: string
-  password: string
 }
 
 export type CreateAccountRequest = {

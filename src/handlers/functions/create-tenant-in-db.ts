@@ -4,7 +4,15 @@ import {RegisterTenantRequest} from '../../types'
 interface CreateTenantInDbProps {
   dbClient: DynamoDB.DocumentClient
   tableName: string
-  item: Omit<RegisterTenantRequest, 'password'>
+  item: Omit<
+    RegisterTenantRequest,
+    | 'password'
+    | 'addressLineTwo'
+    | 'addressLineOne'
+    | 'postCode'
+    | 'doorNumber'
+    | 'townCity'
+  >
 }
 
 export const createTenantInDb = async (props: CreateTenantInDbProps) => {

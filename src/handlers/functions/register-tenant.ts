@@ -64,7 +64,15 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     }
   }
 
-  const {password, ...rest} = item
+  const {
+    password,
+    addressLineTwo,
+    addressLineOne,
+    postCode,
+    doorNumber,
+    townCity,
+    ...rest
+  } = item
 
   await createTenantInDb({dbClient, item: {...rest}, tableName})
 
@@ -76,6 +84,11 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     tenantName: item.name,
     firstName: item.firstName,
     lastName: item.lastName,
+    addressLineOne,
+    addressLineTwo,
+    postCode,
+    doorNumber,
+    townCity,
   })
 
   await publishTenantRegisteredLogEvent({...rest})
