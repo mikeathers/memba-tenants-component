@@ -11,9 +11,9 @@ export const publishCreateTenantAdminAndUserGroupEvent = async (
   const params = {
     Entries: [
       {
-        Source: 'Tenant',
+        Source: 'UserAdmin',
         Detail: JSON.stringify(requestDetails),
-        DetailType: 'Create',
+        DetailType: 'CreateTenantAdminAndUserGroup',
         Time: new Date(),
         EventBusName: eventBusName,
       },

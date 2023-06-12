@@ -74,14 +74,6 @@ export class TenantsLambda {
       }),
     )
 
-    tenantsLambda.addToRolePolicy(
-      new PolicyStatement({
-        actions: ['acm:RequestCertificate'],
-        resources: [`arn:aws:acm:us-east-1:${accountId}:certificate/*`],
-        effect: Effect.ALLOW,
-      }),
-    )
-
     return tenantsLambda
   }
 }
