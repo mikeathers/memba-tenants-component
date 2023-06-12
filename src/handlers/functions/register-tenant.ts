@@ -91,7 +91,18 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     townCity,
   })
 
-  await publishTenantRegisteredLogEvent({...rest})
+  await publishTenantRegisteredLogEvent({
+    emailAddress: item.emailAddress,
+    name: item.name,
+    firstName: item.firstName,
+    lastName: item.lastName,
+    addressLineOne,
+    addressLineTwo,
+    postCode,
+    doorNumber,
+    townCity,
+    tier: item.tier,
+  })
 
   return {
     body: {
