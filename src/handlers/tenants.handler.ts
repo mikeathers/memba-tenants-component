@@ -1,11 +1,14 @@
 import {DynamoDB} from 'aws-sdk'
+import {Route53Client} from '@aws-sdk/client-route-53'
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from 'aws-lambda'
 
-import {HttpStatusCode, TenantDetails} from '../types'
+import {HttpStatusCode} from '../types'
 import {addCorsHeader, errorHasMessage} from '../utils'
 import {registerTenant} from './functions/register-tenant'
+import CONFIG from '../config'
 
 const dbClient = new DynamoDB.DocumentClient()
+const route53Client = new Route53Client({region: CONFIG.REGION})
 
 async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   console.log('request:', JSON.stringify(event, null, 2))
@@ -24,6 +27,7 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
           const response = await registerTenant({
             event,
             dbClient,
+            route53Client,
             hostedZoneId: process.env.HOSTED_ZONE_ID ?? '',
             stage: process.env.STAGE ?? '',
           })

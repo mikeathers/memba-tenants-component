@@ -4,21 +4,23 @@ import {APIGatewayProxyEvent} from 'aws-lambda'
 import {HttpStatusCode, RegisterTenantRequest} from '../../types'
 import {validateRegisterTenantRequest} from '../../validators/tenant.validator'
 import {queryBySecondaryKey} from '../../aws/dynamodb'
-import {createCertificate} from '../../aws/certificate'
 import {createTenantARecord} from './create-tenant-arecord'
 import {publishTenantRegisteredEvent} from '../../events/publishers/tenant-registered.publisher'
 import {publishCreateTenantAdminAndUserGroupEvent} from '../../events/publishers/create-tenant-admin-and-user-group.publisher'
 import {createTenantInDb} from './create-tenant-in-db'
+import {Route53Client} from '@aws-sdk/client-route-53'
+import {getTenantARecord} from './get-tenant-a-record'
 
 interface RegisterTenantProps {
   hostedZoneId: string
   stage: string
   dbClient: DynamoDB.DocumentClient
+  route53Client: Route53Client
   event: APIGatewayProxyEvent
 }
 
 export const registerTenant = async (props: RegisterTenantProps) => {
-  const {event, hostedZoneId, stage, dbClient} = props
+  const {event, hostedZoneId, stage, dbClient, route53Client} = props
 
   const tableName = process.env.TABLE_NAME ?? ''
 
@@ -34,29 +36,39 @@ export const registerTenant = async (props: RegisterTenantProps) => {
       dbClient,
     })
 
-    if (tenantAlreadyExists && tenantAlreadyExists.length < 1) {
-      await createTenantInDb({dbClient, item, tableName})
+    const tenantARecordAlreadyExists = await getTenantARecord({
+      route53Client,
+      tenantName: item.name,
+      hostedZoneId,
+    })
 
-      await createTenantARecord({tenantName: item.name, hostedZoneId, stage})
-
-      await publishCreateTenantAdminAndUserGroupEvent({tenantName: item.name})
-
-      await publishTenantRegisteredEvent(item)
-
+    if (
+      tenantAlreadyExists &&
+      tenantAlreadyExists.length > 0 &&
+      tenantARecordAlreadyExists
+    ) {
       return {
         body: {
-          message: 'Tenant created successfully!',
-          result: item,
-        },
-        statusCode: HttpStatusCode.CREATED,
-      }
-    } else {
-      return {
-        body: {
-          message: 'Tenant name in use',
+          message: 'Tenant already exists',
         },
         statusCode: HttpStatusCode.BAD_REQUEST,
       }
+    }
+
+    await createTenantInDb({dbClient, item, tableName})
+
+    await createTenantARecord({tenantName: item.name, hostedZoneId, stage, route53Client})
+
+    await publishCreateTenantAdminAndUserGroupEvent({tenantName: item.name})
+
+    await publishTenantRegisteredEvent(item)
+
+    return {
+      body: {
+        message: 'Tenant created successfully!',
+        result: item,
+      },
+      statusCode: HttpStatusCode.CREATED,
     }
   }
   return {

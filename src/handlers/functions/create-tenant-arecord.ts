@@ -6,9 +6,9 @@ export const createTenantARecord = async (props: {
   tenantName: string
   hostedZoneId: string
   stage: string
+  route53Client: Route53Client
 }) => {
-  const {tenantName, hostedZoneId, stage} = props
-  const client = new Route53Client({region: CONFIG.REGION})
+  const {tenantName, hostedZoneId, stage, route53Client} = props
   const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
   const tenantUrl = `${tenantName}.${url}`
   const input = {
@@ -32,7 +32,7 @@ export const createTenantARecord = async (props: {
   }
 
   const command = new ChangeResourceRecordSetsCommand(input)
-  const response = await client.send(command)
+  const response = await route53Client.send(command)
 
   return {
     body: {
