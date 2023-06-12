@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/handlers/functions/get-tenant-a-record.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/create-tenant-arecord.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/create-tenant-arecord.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +61,7 @@
       <option name="presentableId" value="Default" />
       <updated>1686294554400</updated>
       <workItem from="1686294555861" duration="10852000" />
-      <workItem from="1686411229194" duration="17914000" />
+      <workItem from="1686411229194" duration="18518000" />
     </task>
     <servers />
   </component>

@@ -68,7 +68,7 @@ export class TenantsLambda {
 
     tenantsLambda.addToRolePolicy(
       new PolicyStatement({
-        actions: ['route53:ChangeResourceRecordSets'],
+        actions: ['route53:ChangeResourceRecordSets', 'route53:ListResourceRecordSets'],
         resources: [`arn:aws:route53:::hostedzone/${hostedZoneId}`],
         effect: Effect.ALLOW,
       }),
