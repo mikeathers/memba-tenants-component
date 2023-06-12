@@ -11,7 +11,7 @@ export const publishTenantRegisteredEvent = async (
   const params = {
     Entries: [
       {
-        Source: 'Tenant',
+        Source: 'TenantEventLog',
         Detail: JSON.stringify(requestDetails),
         DetailType: 'Create',
         Time: new Date(),
