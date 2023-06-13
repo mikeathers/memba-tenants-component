@@ -25,6 +25,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   const tableName = process.env.TABLE_NAME ?? ''
   const usersApiUrl = process.env.USERS_API_URL ?? ''
+  const usersApiSecretName = process.env.USERS_API_SECRET_NAME ?? ''
 
   if (!event.body) {
     return {
@@ -56,6 +57,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   const tenantAdminUserAlreadyExists = await checkIfTenantAdminExists({
     emailToCheck: item.emailAddress,
     usersApiUrl,
+    usersApiSecretName,
   })
 
   if (

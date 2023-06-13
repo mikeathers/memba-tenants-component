@@ -30,6 +30,8 @@ export class TenantsLambda {
     const {scope, stage, hostedZoneId, table, eventBusArn, deadLetterQueue} = props
     const lambdaName = `${CONFIG.STACK_PREFIX}Lambda-${stage}`
     const usersApiUrl = stage === 'prod' ? CONFIG.USERS_API_URL : CONFIG.DEV_USERS_API_URL
+    const usersApiSecretName =
+      stage === 'prod' ? CONFIG.USERS_API_SECRET_NAME : CONFIG.DEV_USERS_API_SECRET_NAME
 
     const lambdaProps: NodejsFunctionProps = {
       functionName: lambdaName,
@@ -40,6 +42,7 @@ export class TenantsLambda {
         HOSTED_ZONE_ID: hostedZoneId,
         STAGE: stage,
         USERS_API_URL: usersApiUrl,
+        USERS_API_SECRET_NAME: usersApiSecretName,
       },
       runtime: Runtime.NODEJS_16_X,
       reservedConcurrentExecutions: 1,
