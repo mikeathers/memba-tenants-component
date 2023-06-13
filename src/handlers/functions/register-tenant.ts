@@ -10,6 +10,7 @@ import {publishCreateTenantAdminAndUserGroupEvent} from '../../events/publishers
 import {createTenantInDb} from './create-tenant-in-db'
 import {Route53Client} from '@aws-sdk/client-route-53'
 import {getTenantARecord} from './get-tenant-a-record'
+import {checkIfTenantAdminExists} from './check-if-tenant-admin-exists'
 
 interface RegisterTenantProps {
   hostedZoneId: string
@@ -23,6 +24,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   const {event, hostedZoneId, stage, dbClient, route53Client} = props
 
   const tableName = process.env.TABLE_NAME ?? ''
+  const usersApiUrl = process.env.USERS_API_URL ?? ''
 
   if (!event.body) {
     return {
@@ -51,14 +53,21 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     hostedZoneId,
   })
 
+  const tenantAdminUserAlreadyExists = await checkIfTenantAdminExists({
+    emailToCheck: item.emailAddress,
+    usersApiUrl,
+  })
+
   if (
-    tenantAlreadyExists &&
-    tenantAlreadyExists.length > 0 &&
-    tenantARecordAlreadyExists
+    (tenantAlreadyExists && tenantAlreadyExists.length > 0) ||
+    tenantARecordAlreadyExists ||
+    tenantAdminUserAlreadyExists
   ) {
     return {
       body: {
-        message: 'Tenant already exists',
+        message: `Tenant details already exists ${{tenantAlreadyExists}}, ${{
+          tenantAdminUserAlreadyExists,
+        }}, ${{tenantARecordAlreadyExists}}`,
       },
       statusCode: HttpStatusCode.BAD_REQUEST,
     }
@@ -76,8 +85,6 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   await createTenantInDb({dbClient, item: {...rest}, tableName})
 
-  await createTenantARecord({tenantName: item.name, hostedZoneId, stage, route53Client})
-
   await publishCreateTenantAdminAndUserGroupEvent({
     password,
     emailAddress: item.emailAddress,
@@ -90,6 +97,8 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     doorNumber,
     townCity,
   })
+
+  await createTenantARecord({tenantName: item.name, hostedZoneId, stage, route53Client})
 
   await publishTenantRegisteredLogEvent({
     emailAddress: item.emailAddress,

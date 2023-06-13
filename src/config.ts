@@ -7,6 +7,8 @@ interface ConfigProps {
   DEV_DOMAIN_NAME: string
   API_URL: string
   DEV_API_URL: string
+  USERS_API_URL: string
+  DEV_USERS_API_URL: string
   SHARED_EVENT_BUS_NAME: string
 }
 
@@ -20,6 +22,8 @@ const CONFIG: ConfigProps = {
   API_URL: 'tenants.memba.co.uk',
   DEV_API_URL: 'tenants.dev.memba.co.uk',
   SHARED_EVENT_BUS_NAME: 'MembaEventBus',
+  USERS_API_URL: 'https://users.memba.co.uk',
+  DEV_USERS_API_URL: 'https://users.dev.memba.co.uk',
 }
 
 export default CONFIG
