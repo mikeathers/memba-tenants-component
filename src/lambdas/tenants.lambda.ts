@@ -77,6 +77,14 @@ export class TenantsLambda {
       }),
     )
 
+    tenantsLambda.addToRolePolicy(
+      new PolicyStatement({
+        actions: ['secretsmanager:GetSecretValue'],
+        resources: [usersApiSecretName],
+        effect: Effect.ALLOW,
+      }),
+    )
+
     return tenantsLambda
   }
 }
