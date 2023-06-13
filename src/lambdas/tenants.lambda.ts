@@ -32,6 +32,8 @@ export class TenantsLambda {
     const usersApiUrl = stage === 'prod' ? CONFIG.USERS_API_URL : CONFIG.DEV_USERS_API_URL
     const usersApiSecretName =
       stage === 'prod' ? CONFIG.USERS_API_SECRET_NAME : CONFIG.DEV_USERS_API_SECRET_NAME
+    const accountId =
+      stage === 'prod' ? CONFIG.AWS_ACCOUNT_ID_PROD : CONFIG.AWS_ACCOUNT_ID_DEV
 
     const lambdaProps: NodejsFunctionProps = {
       functionName: lambdaName,
@@ -80,7 +82,9 @@ export class TenantsLambda {
     tenantsLambda.addToRolePolicy(
       new PolicyStatement({
         actions: ['secretsmanager:GetSecretValue'],
-        resources: [usersApiSecretName],
+        resources: [
+          `arn:aws:secretsmanager:eu-west-2:${accountId}:secret:${usersApiSecretName}`,
+        ],
         effect: Effect.ALLOW,
       }),
     )
