@@ -82,9 +82,7 @@ export class TenantsLambda {
     tenantsLambda.addToRolePolicy(
       new PolicyStatement({
         actions: ['secretsmanager:GetSecretValue'],
-        resources: [
-          `arn:aws:secretsmanager:eu-west-2:${accountId}:secret:${usersApiSecretName}`,
-        ],
+        resources: ['*'],
         effect: Effect.ALLOW,
       }),
     )
