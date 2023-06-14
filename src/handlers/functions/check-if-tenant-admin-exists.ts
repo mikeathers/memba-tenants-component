@@ -9,13 +9,10 @@ interface CheckIfTenantAdminExistsProps {
 
 interface SecretResult {
   api_key: string
-  web_user: string
+  username: string
 }
 
-// eslint-disable-next-line
-export const secretHasValue = (obj: any): obj is SecretResult => {
-  return typeof obj === 'object' && 'api_key' in obj
-}
+const httpClient = axios.create()
 
 export const checkIfTenantAdminExists = async (props: CheckIfTenantAdminExistsProps) => {
   const {usersApiUrl, emailToCheck, usersApiSecretName} = props
@@ -24,21 +21,19 @@ export const checkIfTenantAdminExists = async (props: CheckIfTenantAdminExistsPr
   }
 
   const secretsManager = new SecretsManager()
-  const apiKey = (await secretsManager.getSecretValue(params).promise()).SecretString
+  const apiKey = await secretsManager.getSecretValue(params).promise()
 
-  if (secretHasValue(apiKey)) {
-    const parsedApiKey = apiKey as SecretResult
+  if ('SecretString' in apiKey) {
+    const parsedApiKey = JSON.parse(apiKey.SecretString || '') as SecretResult
 
-    console.log('API_KEY: ', parsedApiKey.api_key)
-
-    const result: AxiosResponse = await axios.get(
-      `${usersApiUrl}/get-account-by-email/${emailToCheck}`,
-      {
-        headers: {
-          ['x-api-key']: parsedApiKey.api_key,
-        },
+    const result: AxiosResponse = await httpClient.request({
+      url: `${usersApiUrl}/get-account-by-email/${emailToCheck}`,
+      method: 'GET',
+      headers: {
+        ['x-api-key']: parsedApiKey.api_key,
       },
-    )
+    })
+
     console.log('GET ACCOUNT BY EMAIL RESULT:', result)
 
     if (result.status === 200) return true

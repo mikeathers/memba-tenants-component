@@ -4169,6 +4169,15 @@ jest-message-util@^29.5.0:
     slash "^3.0.0"
     stack-utils "^2.0.3"
 
+jest-mock-axios@^4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/jest-mock-axios/-/jest-mock-axios-4.7.2.tgz#ddaf31701d2af24c374681524868d56869dc5963"
+  integrity sha512-8xrkCuEsscOLSw4Noi40Pq5tQMlKg3tbDZ0XNkf3Mv0Yq+z6+qS2tToimNs/3RIsEzoPXHTf2+mcySaNaYXIyw==
+  dependencies:
+    "@jest/globals" "^29.5.0"
+    jest "~29.5.0"
+    synchronous-promise "^2.0.17"
+
 jest-mock-extended@^3.0.3:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/jest-mock-extended/-/jest-mock-extended-3.0.4.tgz#12a5f993d27aa46232012c439a9b7c54f3b0a1fd"
@@ -4350,7 +4359,7 @@ jest-worker@^29.5.0:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest@^29.5.0:
+jest@^29.5.0, jest@~29.5.0:
   version "29.5.0"
   resolved "https://registry.yarnpkg.com/jest/-/jest-29.5.0.tgz#f75157622f5ce7ad53028f2f8888ab53e1f1f24e"
   integrity sha512-juMg3he2uru1QoXX078zTa7pO85QyB9xajZc6bU+d9yEGwrKX6+vGmJQ3UdVZsvTEUARIdObzH68QItim6OSSQ==
@@ -5493,6 +5502,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+synchronous-promise@^2.0.17:
+  version "2.0.17"
+  resolved "https://registry.yarnpkg.com/synchronous-promise/-/synchronous-promise-2.0.17.tgz#38901319632f946c982152586f2caf8ddc25c032"
+  integrity sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==
 
 table@^6.0.9, table@^6.8.1:
   version "6.8.1"

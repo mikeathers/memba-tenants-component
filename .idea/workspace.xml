@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/handlers/functions/functions.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test-support/__mocks__/axios.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test-support/create-axios-response.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test-support/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.husky/pre-commit" beforeDir="false" afterPath="$PROJECT_DIR$/.husky/pre-commit" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lint-staged.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/lint-staged.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +39,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/michaelatherton/Development/memba/memba-tenants-component/src/aws",
+    "last_opened_file_path": "/Users/michaelatherton/Development/memba/memba-tenants-component/src/test-support",
+    "nodejs.jest.jest_package": "/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/jest",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/prettier",
     "settings.editor.selected.configurable": "settings.javascript.prettier",
@@ -45,6 +55,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test-support" />
       <recent name="$PROJECT_DIR$/src/aws" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
@@ -53,6 +64,68 @@
       <recent name="$PROJECT_DIR$/src/events/publishers" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
+  </component>
+  <component name="RunManager" selected="Jest.Tenant Handler Functions">
+    <configuration name="Tenant Handler Functions" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/handlers/functions/functions.test.ts" />
+      <test-names>
+        <test-name value="Tenant Handler Functions" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tenant Handler Functions.Check if tenant admin exists" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/handlers/functions/functions.test.ts" />
+      <test-names>
+        <test-name value="Tenant Handler Functions" />
+        <test-name value="Check if tenant admin exists" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tenant Handler Functions.Check if tenant admin exists.should return true is tenant exists" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/handlers/functions/functions.test.ts" />
+      <test-names>
+        <test-name value="Tenant Handler Functions" />
+        <test-name value="Check if tenant admin exists" />
+        <test-name value="should return true is tenant exists" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="functions.test.ts" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/src/handlers/functions/functions.test.ts" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.Tenant Handler Functions" />
+        <item itemvalue="Jest.functions.test.ts" />
+        <item itemvalue="Jest.Tenant Handler Functions.Check if tenant admin exists.should return true is tenant exists" />
+        <item itemvalue="Jest.Tenant Handler Functions.Check if tenant admin exists" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -63,7 +136,7 @@
       <option name="presentableId" value="Default" />
       <updated>1686294554400</updated>
       <workItem from="1686294555861" duration="10852000" />
-      <workItem from="1686411229194" duration="44911000" />
+      <workItem from="1686411229194" duration="50004000" />
     </task>
     <servers />
   </component>
@@ -80,5 +153,23 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts</url>
+          <line>23</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts</url>
+          <line>28</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -23,3 +23,6 @@ yarn type-check
 
 echo "Running lint command"
 yarn lint-staged
+
+echo "Running tests"
+yarn test
