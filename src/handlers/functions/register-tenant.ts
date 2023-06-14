@@ -67,9 +67,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   ) {
     return {
       body: {
-        message: `Tenant details already exists ${{tenantAlreadyExists}}, ${{
-          tenantAdminUserAlreadyExists,
-        }}, ${{tenantARecordAlreadyExists}}`,
+        message: `Tenant details already exists: tenantAlreadyExists: ${!!tenantAlreadyExists}, tenantAdminUserAlreadyExists: ${tenantAdminUserAlreadyExists}, tenantARecordAlreadyExists: ${!!tenantARecordAlreadyExists}`,
       },
       statusCode: HttpStatusCode.BAD_REQUEST,
     }
