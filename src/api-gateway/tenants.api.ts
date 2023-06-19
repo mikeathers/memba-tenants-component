@@ -45,6 +45,7 @@ export class TenantsApi {
         domainName,
         certificate,
       },
+      defaultCorsPreflightOptions: optionsWithCors,
     })
 
     tenantsLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
