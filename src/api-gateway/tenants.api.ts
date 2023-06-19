@@ -50,8 +50,6 @@ export class TenantsApi {
 
     tenantsLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
 
-    api.root.addCorsPreflight(optionsWithCors)
-
     api.root
       .addResource('register-tenant')
       .addMethod('POST', new LambdaIntegration(tenantsLambda))
