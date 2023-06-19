@@ -36,7 +36,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     }
   }
 
-  const item = JSON.parse(event.body) as RegisterTenantRequest
+  const item = JSON.parse(event.body) as RegisterTenantRequest & {tenantUrl: string}
   item.id = uuidv4()
 
   validateRegisterTenantRequest(item)
@@ -73,6 +73,10 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     }
   }
 
+  const parsedTenantARecord = item.name.replace(' ', '').toLowerCase()
+
+  item.tenantUrl = parsedTenantARecord
+
   const {
     password,
     addressLineTwo,
@@ -98,7 +102,12 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     townCity,
   })
 
-  await createTenantARecord({tenantName: item.name, hostedZoneId, stage, route53Client})
+  const tenantUrl = await createTenantARecord({
+    tenantName: parsedTenantARecord,
+    hostedZoneId,
+    stage,
+    route53Client,
+  })
 
   await publishTenantRegisteredLogEvent({
     emailAddress: item.emailAddress,
@@ -111,6 +120,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     doorNumber,
     townCity,
     tier: item.tier,
+    tenantUrl,
   })
 
   return {

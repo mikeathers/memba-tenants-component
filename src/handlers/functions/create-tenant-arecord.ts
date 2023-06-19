@@ -32,13 +32,7 @@ export const createTenantARecord = async (props: {
   }
 
   const command = new ChangeResourceRecordSetsCommand(input)
-  const response = await route53Client.send(command)
+  await route53Client.send(command)
 
-  return {
-    body: {
-      message: 'A Record created successfully!',
-      result: response,
-    },
-    statusCode: HttpStatusCode.CREATED,
-  }
+  return tenantUrl
 }
