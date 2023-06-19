@@ -28,7 +28,6 @@ export class TenantsApi {
       allowOrigins: Cors.ALL_ORIGINS,
       allowMethods: Cors.ALL_METHODS,
       allowHeaders: [
-        ...Cors.DEFAULT_HEADERS,
         'Content-Type',
         'X-Amz-Date',
         'Authorization',
