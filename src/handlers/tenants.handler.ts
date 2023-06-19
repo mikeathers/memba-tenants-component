@@ -16,7 +16,7 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
   const result: APIGatewayProxyResult = {
     statusCode: HttpStatusCode.OK,
     body: '',
-    headers: {'Access-Control-Allow-Origin': '*'},
+    // headers: {'Access-Control-Allow-Origin': '*'},
   }
 
   addCorsHeader(event)
