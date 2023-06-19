@@ -1,16 +1,12 @@
 import {Route53Client, ChangeResourceRecordSetsCommand} from '@aws-sdk/client-route-53'
-import CONFIG from '../../config'
-import {HttpStatusCode} from '../../types'
 
 export const createTenantARecord = async (props: {
-  tenantName: string
+  tenantUrl: string
+  hostedZoneUrl: string
   hostedZoneId: string
-  stage: string
   route53Client: Route53Client
 }) => {
-  const {tenantName, hostedZoneId, stage, route53Client} = props
-  const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
-  const tenantUrl = `${tenantName}.${url}`
+  const {tenantUrl, hostedZoneUrl, hostedZoneId, route53Client} = props
   const input = {
     ChangeBatch: {
       Changes: [
@@ -20,7 +16,7 @@ export const createTenantARecord = async (props: {
             Name: tenantUrl,
             AliasTarget: {
               HostedZoneId: hostedZoneId,
-              DNSName: url,
+              DNSName: hostedZoneUrl,
               EvaluateTargetHealth: true,
             },
             Type: 'A',
@@ -33,6 +29,4 @@ export const createTenantARecord = async (props: {
 
   const command = new ChangeResourceRecordSetsCommand(input)
   await route53Client.send(command)
-
-  return tenantUrl
 }

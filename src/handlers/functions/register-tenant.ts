@@ -11,6 +11,7 @@ import {createTenantInDb} from './create-tenant-in-db'
 import {Route53Client} from '@aws-sdk/client-route-53'
 import {getTenantARecord} from './get-tenant-a-record'
 import {checkIfTenantAdminExists} from './check-if-tenant-admin-exists'
+import CONFIG from '../../config'
 
 interface RegisterTenantProps {
   hostedZoneId: string
@@ -74,8 +75,10 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   }
 
   const parsedTenantARecord = item.name.replace(' ', '').toLowerCase()
+  const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
+  const tenantUrl = `${parsedTenantARecord}.${url}`
 
-  item.tenantUrl = parsedTenantARecord
+  item.tenantUrl = tenantUrl
 
   const {
     password,
@@ -89,6 +92,13 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   await createTenantInDb({dbClient, item: {...rest}, tableName})
 
+  await createTenantARecord({
+    tenantUrl,
+    hostedZoneUrl: url,
+    hostedZoneId,
+    route53Client,
+  })
+
   await publishCreateTenantAdminAndUserGroupEvent({
     password,
     emailAddress: item.emailAddress,
@@ -100,13 +110,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     postCode,
     doorNumber,
     townCity,
-  })
-
-  const tenantUrl = await createTenantARecord({
-    tenantName: parsedTenantARecord,
-    hostedZoneId,
-    stage,
-    route53Client,
+    tenantUrl,
   })
 
   await publishTenantRegisteredLogEvent({

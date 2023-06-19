@@ -21,6 +21,7 @@ export type CreateTenantAdminAndUserGroupRequest = Omit<
   'id' | 'name' | 'tier'
 > & {
   tenantName: string
+  tenantUrl: string
 }
 
 export type CreateAccountRequest = {
