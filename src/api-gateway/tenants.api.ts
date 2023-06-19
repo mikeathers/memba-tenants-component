@@ -1,12 +1,5 @@
 import CONFIG from '../config'
-import {
-  Cors,
-  CorsOptions,
-  GatewayResponse,
-  LambdaIntegration,
-  ResponseType,
-  RestApi,
-} from 'aws-cdk-lib/aws-apigateway'
+import {Cors, CorsOptions, LambdaIntegration, RestApi} from 'aws-cdk-lib/aws-apigateway'
 import {Construct} from 'constructs'
 import {IFunction} from 'aws-cdk-lib/aws-lambda'
 import {ARecord, IHostedZone, RecordTarget} from 'aws-cdk-lib/aws-route53'
@@ -53,14 +46,6 @@ export class TenantsApi {
         certificate,
       },
       defaultCorsPreflightOptions: optionsWithCors,
-    })
-
-    new GatewayResponse(scope, 'TenantsGatewayResponse', {
-      restApi: api,
-      type: ResponseType.DEFAULT_4XX,
-      responseHeaders: {
-        'Access-Control-Allow-Origin': '*',
-      },
     })
 
     tenantsLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
