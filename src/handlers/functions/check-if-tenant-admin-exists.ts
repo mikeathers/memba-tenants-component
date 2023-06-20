@@ -20,24 +20,28 @@ export const checkIfTenantAdminExists = async (props: CheckIfTenantAdminExistsPr
     SecretId: usersApiSecretName,
   }
 
-  const secretsManager = new SecretsManager()
-  const apiKey = await secretsManager.getSecretValue(params).promise()
+  try {
+    const secretsManager = new SecretsManager()
+    const apiKey = await secretsManager.getSecretValue(params).promise()
 
-  if ('SecretString' in apiKey) {
-    const parsedApiKey = JSON.parse(apiKey.SecretString || '') as SecretResult
+    if ('SecretString' in apiKey) {
+      const parsedApiKey = JSON.parse(apiKey.SecretString || '') as SecretResult
 
-    const result: AxiosResponse = await httpClient.request({
-      url: `${usersApiUrl}/get-account-by-email/${emailToCheck}`,
-      method: 'GET',
-      headers: {
-        ['x-api-key']: parsedApiKey.api_key,
-      },
-    })
+      const result: AxiosResponse = await httpClient.request({
+        url: `${usersApiUrl}/get-account-by-email/${emailToCheck}`,
+        method: 'GET',
+        headers: {
+          ['x-api-key']: parsedApiKey.api_key,
+        },
+      })
 
-    console.log('GET ACCOUNT BY EMAIL RESULT:', result)
+      console.log('GET ACCOUNT BY EMAIL RESULT:', result)
 
-    if (result.status === 200) return true
+      if (result.status === 200) return true
+      return false
+    }
+    return false
+  } catch {
     return false
   }
-  return false
 }

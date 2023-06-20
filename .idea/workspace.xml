@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/add-cors-header/add-cors-header.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/add-cors-header/add-cors-header.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +128,8 @@
       <workItem from="1686294555861" duration="10852000" />
       <workItem from="1686411229194" duration="53545000" />
       <workItem from="1687187111039" duration="1048000" />
-      <workItem from="1687197573674" duration="6564000" />
+      <workItem from="1687197573674" duration="8283000" />
+      <workItem from="1687238949585" duration="598000" />
     </task>
     <servers />
   </component>
