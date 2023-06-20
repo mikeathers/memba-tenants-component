@@ -68,7 +68,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   ) {
     return {
       body: {
-        message: `Tenant details already exists: tenantAlreadyExists: ${!!tenantAlreadyExists}, tenantAdminUserAlreadyExists: ${tenantAdminUserAlreadyExists}, tenantARecordAlreadyExists: ${!!tenantARecordAlreadyExists}`,
+        message: `Tenant details already exists`,
       },
       statusCode: HttpStatusCode.BAD_REQUEST,
     }
@@ -127,10 +127,25 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     tenantUrl,
   })
 
+  const result = {
+    emailAddress: item.emailAddress,
+    tenantName: item.name,
+    firstName: item.firstName,
+    lastName: item.lastName,
+    addressLineOne,
+    addressLineTwo,
+    postCode,
+    doorNumber,
+    townCity,
+    tier: item.tier,
+    tenantUrl,
+    id: item.id,
+  }
+
   return {
     body: {
       message: 'Tenant created successfully!',
-      result: item,
+      result,
     },
     statusCode: HttpStatusCode.CREATED,
   }

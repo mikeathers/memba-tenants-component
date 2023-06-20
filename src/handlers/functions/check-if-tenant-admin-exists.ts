@@ -37,8 +37,7 @@ export const checkIfTenantAdminExists = async (props: CheckIfTenantAdminExistsPr
 
       console.log('GET ACCOUNT BY EMAIL RESULT:', result)
 
-      if (result.status === 200) return true
-      return false
+      return result.status === 200
     }
     return false
   } catch {
