@@ -23,11 +23,11 @@ const CONFIG: ConfigProps = {
   DEV_DOMAIN_NAME: 'dev.memba.co.uk',
   API_URL: 'tenants.memba.co.uk',
   DEV_API_URL: 'tenants.dev.memba.co.uk',
-  SHARED_EVENT_BUS_NAME: 'MembaEventBus',
+  SHARED_EVENT_BUS_NAME: 'SharedEventBus',
   USERS_API_URL: 'https://users.memba.co.uk',
   DEV_USERS_API_URL: 'https://users.dev.memba.co.uk',
-  DEV_USERS_API_SECRET_NAME: 'MembaUsersApiSecret148DEC91-6MKV1snPocrf',
-  USERS_API_SECRET_NAME: 'MembaUsersApiSecret148DEC91-oxgPVofl6iiF',
+  DEV_USERS_API_SECRET_NAME: 'UsersApiSecret148DEC91-6MKV1snPocrf',
+  USERS_API_SECRET_NAME: 'UsersApiSecret148DEC91-oxgPVofl6iiF',
 }
 
 export default CONFIG
