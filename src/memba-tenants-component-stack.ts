@@ -17,9 +17,10 @@ export class MembaTenantsComponentStack extends Stack {
     super(scope, id, props)
     const {stage} = props
 
-    const devEventBusArn = `arn:aws:events:${CONFIG.REGION}:${CONFIG.AWS_ACCOUNT_ID_DEV}:event-bus/${CONFIG.SHARED_EVENT_BUS_NAME}-${stage}`
-    const prodEventBusArn = `arn:aws:events:${CONFIG.REGION}:${CONFIG.AWS_ACCOUNT_ID_PROD}:event-bus/${CONFIG.SHARED_EVENT_BUS_NAME}-${stage}`
-    const eventBusArn = stage === 'prod' ? prodEventBusArn : devEventBusArn
+    const accountId = Stack.of(this).account
+    const region = Stack.of(this).region
+
+    const eventBusArn = `arn:aws:events:${region}:${accountId}:event-bus/${CONFIG.SHARED_EVENT_BUS_NAME}`
 
     const hostedZoneUrl = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
     const hostedZone = getHostedZone({scope: this, domainName: hostedZoneUrl})
@@ -34,9 +35,9 @@ export class MembaTenantsComponentStack extends Stack {
 
     const database = new Databases(this, `${CONFIG.STACK_PREFIX}Databases`)
 
-    const deadLetterQueue = new Queue(this, `${CONFIG.STACK_PREFIX}DLQ`, {
+    const deadLetterQueue = new Queue(this, `${CONFIG.STACK_PREFIX}-DLQ`, {
       retentionPeriod: Duration.days(7),
-      queueName: `${CONFIG.STACK_PREFIX}DLQ`,
+      queueName: `${CONFIG.STACK_PREFIX}-DLQ`,
     })
 
     const {tenantsLambda} = new TenantsLambda({

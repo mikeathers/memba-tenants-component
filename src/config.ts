@@ -26,8 +26,8 @@ const CONFIG: ConfigProps = {
   SHARED_EVENT_BUS_NAME: 'SharedEventBus',
   USERS_API_URL: 'https://users.memba.co.uk',
   DEV_USERS_API_URL: 'https://users.dev.memba.co.uk',
-  DEV_USERS_API_SECRET_NAME: 'UsersApiSecret148DEC91-6MKV1snPocrf',
-  USERS_API_SECRET_NAME: 'UsersApiSecret148DEC91-oxgPVofl6iiF',
+  DEV_USERS_API_SECRET_NAME: 'UsersApiSecret2148637E-C1f5RHAqNmMo',
+  USERS_API_SECRET_NAME: 'UsersApiSecret2148637E-tkqbsR7mldSy',
 }
 
 export default CONFIG

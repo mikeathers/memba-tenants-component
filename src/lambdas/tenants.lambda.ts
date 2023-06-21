@@ -32,8 +32,6 @@ export class TenantsLambda {
     const usersApiUrl = stage === 'prod' ? CONFIG.USERS_API_URL : CONFIG.DEV_USERS_API_URL
     const usersApiSecretName =
       stage === 'prod' ? CONFIG.USERS_API_SECRET_NAME : CONFIG.DEV_USERS_API_SECRET_NAME
-    const accountId =
-      stage === 'prod' ? CONFIG.AWS_ACCOUNT_ID_PROD : CONFIG.AWS_ACCOUNT_ID_DEV
 
     const lambdaProps: NodejsFunctionProps = {
       functionName: lambdaName,
