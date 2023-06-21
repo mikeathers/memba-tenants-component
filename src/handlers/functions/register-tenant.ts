@@ -74,9 +74,9 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     }
   }
 
-  const parsedTenantARecord = item.name.replace(' ', '').toLowerCase()
+  const parsedTenantName = item.name.replace(' ', '').toLowerCase()
   const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
-  const tenantUrl = `${parsedTenantARecord}.${url}`
+  const tenantUrl = `${parsedTenantName}.${url}`
 
   item.tenantUrl = tenantUrl
 
@@ -102,7 +102,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   await publishCreateTenantAdminAndUserGroupEvent({
     password,
     emailAddress: item.emailAddress,
-    tenantName: item.name,
+    tenantName: parsedTenantName,
     firstName: item.firstName,
     lastName: item.lastName,
     addressLineOne,
@@ -115,7 +115,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   await publishTenantRegisteredLogEvent({
     emailAddress: item.emailAddress,
-    name: item.name,
+    name: parsedTenantName,
     firstName: item.firstName,
     lastName: item.lastName,
     addressLineOne,
@@ -129,7 +129,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   const result = {
     emailAddress: item.emailAddress,
-    tenantName: item.name,
+    tenantName: parsedTenantName,
     firstName: item.firstName,
     lastName: item.lastName,
     addressLineOne,
