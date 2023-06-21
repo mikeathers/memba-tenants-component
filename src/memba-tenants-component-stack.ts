@@ -32,15 +32,11 @@ export class MembaTenantsComponentStack extends Stack {
       region: 'eu-west-2',
     })
 
-    const database = new Databases(
-      this,
-      `${CONFIG.STACK_PREFIX}Databases-${stage}`,
-      stage,
-    )
+    const database = new Databases(this, `${CONFIG.STACK_PREFIX}Databases`)
 
-    const deadLetterQueue = new Queue(this, `${CONFIG.STACK_PREFIX}DLQ-${stage}`, {
+    const deadLetterQueue = new Queue(this, `${CONFIG.STACK_PREFIX}DLQ`, {
       retentionPeriod: Duration.days(7),
-      queueName: `${CONFIG.STACK_PREFIX}DLQ-${stage}`,
+      queueName: `${CONFIG.STACK_PREFIX}DLQ`,
     })
 
     const {tenantsLambda} = new TenantsLambda({

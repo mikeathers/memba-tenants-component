@@ -7,7 +7,7 @@ import {MembaTenantsComponentStack} from './memba-tenants-component-stack'
 
 const app = new App()
 const stage = getStage(app)
-const stackName = `${CONFIG.STACK_PREFIX}Component-${stage}`
+const stackName = `${CONFIG.STACK_PREFIX}Component`
 
 const defaultConfig = {
   stage,

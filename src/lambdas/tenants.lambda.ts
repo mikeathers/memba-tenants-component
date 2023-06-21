@@ -28,7 +28,7 @@ export class TenantsLambda {
 
   private createTenantsLambda(props: TenantsLambdaProps): NodejsFunction {
     const {scope, stage, hostedZoneId, table, eventBusArn, deadLetterQueue} = props
-    const lambdaName = `${CONFIG.STACK_PREFIX}Lambda-${stage}`
+    const lambdaName = `${CONFIG.STACK_PREFIX}Lambda`
     const usersApiUrl = stage === 'prod' ? CONFIG.USERS_API_URL : CONFIG.DEV_USERS_API_URL
     const usersApiSecretName =
       stage === 'prod' ? CONFIG.USERS_API_SECRET_NAME : CONFIG.DEV_USERS_API_SECRET_NAME

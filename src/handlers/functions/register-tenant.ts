@@ -44,14 +44,14 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   const tenantAlreadyExists = await queryBySecondaryKey({
     queryKey: 'name',
-    queryValue: item.name,
+    queryValue: item.tenantName,
     tableName,
     dbClient,
   })
 
   const tenantARecordAlreadyExists = await getTenantARecord({
     route53Client,
-    tenantName: item.name,
+    tenantName: item.tenantName,
     hostedZoneId,
   })
 
@@ -74,7 +74,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     }
   }
 
-  const parsedTenantName = item.name.replace(' ', '').toLowerCase()
+  const parsedTenantName = item.tenantName.replace(' ', '').toLowerCase()
   const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
   const tenantUrl = `${parsedTenantName}.${url}`
 
@@ -115,7 +115,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
 
   await publishTenantRegisteredLogEvent({
     emailAddress: item.emailAddress,
-    name: parsedTenantName,
+    tenantName: parsedTenantName,
     firstName: item.firstName,
     lastName: item.lastName,
     addressLineOne,

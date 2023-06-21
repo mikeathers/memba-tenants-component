@@ -3,7 +3,7 @@ import {AWSError, DynamoDB} from 'aws-sdk'
 
 export type RegisterTenantRequest = {
   id: string
-  name: string
+  tenantName: string
   tier: string
   firstName: string
   lastName: string
@@ -18,7 +18,7 @@ export type RegisterTenantRequest = {
 
 export type CreateTenantAdminAndUserGroupRequest = Omit<
   RegisterTenantRequest,
-  'id' | 'name' | 'tier'
+  'id' | 'tenantName' | 'tier'
 > & {
   tenantName: string
   tenantUrl: string

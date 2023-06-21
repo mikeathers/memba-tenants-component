@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/databases.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/databases.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/functions/create-tenant-arecord.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/create-tenant-arecord.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/memba-tenants-component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validators/tenant.validator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validators/tenant.validator.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,10 +44,14 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/michaelatherton/Development/memba/memba-tenants-component/src/test-support&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs.jest.jest_package&quot;: &quot;/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/jest&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -58,7 +76,6 @@
   <component name="RunManager" selected="Jest.Tenant Handler Functions">
     <configuration name="Tenant Handler Functions" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
-      <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
@@ -71,7 +88,6 @@
     </configuration>
     <configuration name="Tenant Handler Functions.Check if tenant admin exists" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
-      <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
@@ -85,7 +101,6 @@
     </configuration>
     <configuration name="Tenant Handler Functions.Check if tenant admin exists.should return true is tenant exists" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
-      <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
@@ -100,7 +115,6 @@
     </configuration>
     <configuration name="functions.test.ts" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
-      <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
@@ -130,7 +144,8 @@
       <workItem from="1687187111039" duration="1048000" />
       <workItem from="1687197573674" duration="8283000" />
       <workItem from="1687238949585" duration="598000" />
-      <workItem from="1687268300855" duration="2400000" />
+      <workItem from="1687268300855" duration="5803000" />
+      <workItem from="1687328691800" duration="242000" />
     </task>
     <servers />
   </component>

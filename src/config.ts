@@ -15,7 +15,7 @@ interface ConfigProps {
 }
 
 const CONFIG: ConfigProps = {
-  STACK_PREFIX: 'MembaTenants',
+  STACK_PREFIX: 'Tenants',
   REGION: 'eu-west-2',
   AWS_ACCOUNT_ID_PROD: '635800996936',
   AWS_ACCOUNT_ID_DEV: '544312030237',

@@ -22,7 +22,7 @@ export class TenantsApi {
 
   private createTenantsApi(props: TenantsApiProps) {
     const {scope, stage, certificate, tenantsLambda, hostedZone} = props
-    const restApiName = `${CONFIG.STACK_PREFIX}Api (${stage})`
+    const restApiName = `${CONFIG.STACK_PREFIX}-Api`
 
     const optionsWithCors: CorsOptions = {
       allowOrigins: Cors.ALL_ORIGINS,
