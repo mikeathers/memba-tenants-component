@@ -5,7 +5,10 @@ import {getEnv} from '../../utils'
 const eventBridge = new EventBridge()
 
 export const publishTenantRegisteredLogEvent = async (
-  requestDetails: Omit<RegisterTenantRequest, 'password' | 'id'> & {tenantUrl: string},
+  requestDetails: Omit<RegisterTenantRequest, 'password' | 'id'> & {
+    tenantUrl: string
+    tenantId: string
+  },
 ) => {
   const eventBusName = getEnv('EVENT_BUS_ARN')
   const params = {

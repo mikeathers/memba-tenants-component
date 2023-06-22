@@ -79,6 +79,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   const tenantUrl = `${parsedTenantName}.${url}`
 
   item.tenantUrl = tenantUrl
+  item.tenantName = parsedTenantName
 
   const {
     password,
@@ -125,6 +126,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     townCity,
     tier: item.tier,
     tenantUrl,
+    tenantId: item.id,
   })
 
   const result = {
