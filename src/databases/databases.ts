@@ -25,13 +25,13 @@ export class Databases extends Construct {
       billingMode: BillingMode.PAY_PER_REQUEST,
     })
 
-    // tenantsTable.addGlobalSecondaryIndex({
-    //   indexName: 'tenantName',
-    //   partitionKey: {
-    //     name: 'tenantName',
-    //     type: AttributeType.STRING,
-    //   },
-    // })
+    tenantsTable.addGlobalSecondaryIndex({
+      indexName: 'tenantName',
+      partitionKey: {
+        name: 'tenantName',
+        type: AttributeType.STRING,
+      },
+    })
 
     return tenantsTable
   }
