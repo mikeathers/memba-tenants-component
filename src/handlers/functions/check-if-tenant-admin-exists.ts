@@ -38,6 +38,7 @@ export const checkIfTenantAdminExists = async (props: CheckIfTenantAdminExistsPr
 
     return result.status === 200
   } catch (error) {
+    console.log('GET TENANT BY EMAIL ERROR: ', error)
     if (!axios.isAxiosError(error)) {
       throw error
     } else {

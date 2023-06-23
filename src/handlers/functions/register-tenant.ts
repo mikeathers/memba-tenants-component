@@ -41,7 +41,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   validateRegisterTenantRequest(item)
 
   const tenantAlreadyExists = await queryBySecondaryKey({
-    queryKey: 'name',
+    queryKey: 'tenantName',
     queryValue: item.tenantName,
     tableName,
     dbClient,
@@ -57,6 +57,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     usersApiUrl,
     usersApiSecretName,
   })
+  console.log('tenantAdminUserAlreadyExists: ', tenantAdminUserAlreadyExists)
 
   if (
     (tenantAlreadyExists && tenantAlreadyExists.length > 0) ||

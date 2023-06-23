@@ -38,7 +38,7 @@ export const deleteTenant = async (props: DeleteTenantProps) => {
     if (tenantId) {
       const params = {
         TableName: tableName,
-        Key: {tenantId},
+        Key: {id: tenantId},
         ReturnValues: 'ALL_OLD',
       }
 
