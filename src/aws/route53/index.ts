@@ -96,11 +96,11 @@ export const deleteARecord = async (props: {
 }) => {
   const {tenantUrl, hostedZoneUrl, hostedZoneId} = props
 
-  const tenantExists = await getARecord({hostedZoneId, tenantUrl})
+  const tenantARecordExists = await getARecord({hostedZoneId, tenantUrl})
 
-  console.log({tenantExists})
+  console.log({tenantARecordExists})
 
-  if (tenantExists) return
+  if (!tenantARecordExists) return
 
   const input = {
     ChangeBatch: {

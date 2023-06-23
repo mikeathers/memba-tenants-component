@@ -26,7 +26,7 @@ export const deleteTenant = async (props: DeleteTenantProps) => {
 
     console.log('DELETE - ACCOUNT EXISTS: ', accountExists)
 
-    if (!accountExists?.Item) {
+    if (!accountExists) {
       return {
         body: {
           message: `Account ${tenantId} was not deleted because it does not exist.`,
@@ -43,7 +43,7 @@ export const deleteTenant = async (props: DeleteTenantProps) => {
       }
 
       const result = await dbClient.delete(params).promise()
-      console.log('DELETE TEnaNT RESULT: ', result)
+      console.log('DELETE TENANT RESULT: ', result)
 
       return {
         body: {
