@@ -1,5 +1,4 @@
 import {deleteARecord} from '../../aws/route53'
-import {Route53Client} from '@aws-sdk/client-route-53'
 import {getByPrimaryKey} from '../../aws/dynamodb'
 import {DynamoDB} from 'aws-sdk'
 import {HttpStatusCode} from '../../types'

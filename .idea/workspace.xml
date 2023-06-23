@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/handlers/functions/create-tenant-admin-user-and-user-group.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handlers/functions/delete-tenant.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aws/route53/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/aws/route53/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/create-tenant-arecord.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/get-tenant-a-record.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/functions/delete-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/delete-tenant.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validators/tenant.validator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validators/tenant.validator.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,7 +140,7 @@
       <workItem from="1687268300855" duration="5803000" />
       <workItem from="1687328691800" duration="4534000" />
       <workItem from="1687356524213" duration="21000" />
-      <workItem from="1687448636928" duration="6635000" />
+      <workItem from="1687448636928" duration="8266000" />
     </task>
     <servers />
   </component>
@@ -160,21 +157,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts</url>
-          <line>24</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts</url>
-          <line>29</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

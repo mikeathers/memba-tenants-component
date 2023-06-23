@@ -1,4 +1,4 @@
-import {CreateAccountRequest, RegisterTenantRequest} from '../types'
+import {RegisterTenantRequest} from '../types'
 
 export class MissingFieldError extends Error {}
 
