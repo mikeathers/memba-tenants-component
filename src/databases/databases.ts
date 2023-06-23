@@ -26,9 +26,9 @@ export class Databases extends Construct {
     })
 
     tenantsTable.addGlobalSecondaryIndex({
-      indexName: 'name',
+      indexName: 'tenantName',
       partitionKey: {
-        name: 'name',
+        name: 'tenantName',
         type: AttributeType.STRING,
       },
     })
