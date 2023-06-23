@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from 'axios'
+import axios, {AxiosError, AxiosResponse} from 'axios'
 import {SecretsManager} from 'aws-sdk'
 
 interface CheckIfTenantAdminExistsProps {
@@ -38,7 +38,12 @@ export const checkIfTenantAdminExists = async (props: CheckIfTenantAdminExistsPr
 
     return result.status === 200
   } catch (error) {
-    console.log(error)
-    throw error
+    if (!axios.isAxiosError(error)) {
+      throw error
+    } else {
+      if ((error as AxiosError) && error.response?.status !== 500) {
+        return false
+      } else throw error
+    }
   }
 }
