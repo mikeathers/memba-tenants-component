@@ -98,6 +98,8 @@ export const deleteARecord = async (props: {
 
   const tenantExists = await getARecord({hostedZoneId, tenantUrl})
 
+  console.log({tenantExists})
+
   if (tenantExists) return
 
   const input = {
@@ -121,7 +123,8 @@ export const deleteARecord = async (props: {
   }
 
   const command = new ChangeResourceRecordSetsCommand(input)
-  await route53Client.send(command)
+  const result = await route53Client.send(command)
+  console.log('DELETE A RECORD RESULT: ', result)
 }
 
 interface GetARecordProps {
