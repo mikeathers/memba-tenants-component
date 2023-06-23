@@ -2,27 +2,25 @@ import {DynamoDB} from 'aws-sdk'
 import {v4 as uuidv4} from 'uuid'
 import {APIGatewayProxyEvent} from 'aws-lambda'
 import {HttpStatusCode, RegisterTenantRequest} from '../../types'
-import {validateRegisterTenantRequest} from '../../validators/tenant.validator'
+import {validateRegisterTenantRequest} from '../../validators'
 import {queryBySecondaryKey} from '../../aws/dynamodb'
-import {createTenantARecord} from './create-tenant-arecord'
 import {publishTenantRegisteredLogEvent} from '../../events/publishers/tenant-registered.publisher'
-import {publishCreateTenantAdminAndUserGroupEvent} from '../../events/publishers/create-tenant-admin-and-user-group.publisher'
 import {createTenantInDb} from './create-tenant-in-db'
-import {Route53Client} from '@aws-sdk/client-route-53'
-import {getTenantARecord} from './get-tenant-a-record'
 import {checkIfTenantAdminExists} from './check-if-tenant-admin-exists'
 import CONFIG from '../../config'
+import {createTenantAdminUserAndUserGroup} from './create-tenant-admin-user-and-user-group'
+import {createARecord, getARecord} from '../../aws/route53'
+import {deleteTenant} from './delete-tenant'
 
 interface RegisterTenantProps {
   hostedZoneId: string
   stage: string
   dbClient: DynamoDB.DocumentClient
-  route53Client: Route53Client
   event: APIGatewayProxyEvent
 }
 
 export const registerTenant = async (props: RegisterTenantProps) => {
-  const {event, hostedZoneId, stage, dbClient, route53Client} = props
+  const {event, hostedZoneId, stage, dbClient} = props
 
   const tableName = process.env.TABLE_NAME ?? ''
   const usersApiUrl = process.env.USERS_API_URL ?? ''
@@ -49,9 +47,8 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     dbClient,
   })
 
-  const tenantARecordAlreadyExists = await getTenantARecord({
-    route53Client,
-    tenantName: item.tenantName,
+  const tenantARecordAlreadyExists = await getARecord({
+    tenantUrl: item.tenantName,
     hostedZoneId,
   })
 
@@ -91,65 +88,87 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     ...rest
   } = item
 
-  await createTenantInDb({dbClient, item: {...rest}, tableName})
+  try {
+    await createTenantInDb({dbClient, item: {...rest}, tableName})
 
-  await createTenantARecord({
-    tenantUrl,
-    hostedZoneUrl: url,
-    hostedZoneId,
-    route53Client,
-  })
+    await createARecord({
+      tenantUrl,
+      hostedZoneUrl: url,
+      hostedZoneId,
+    })
 
-  await publishCreateTenantAdminAndUserGroupEvent({
-    password,
-    emailAddress: item.emailAddress,
-    tenantName: parsedTenantName,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    addressLineOne,
-    addressLineTwo,
-    postCode,
-    doorNumber,
-    townCity,
-    tenantUrl,
-    tenantId: item.id,
-  })
+    await createTenantAdminUserAndUserGroup({
+      usersApiUrl,
+      usersApiSecretName,
+      password,
+      emailAddress: item.emailAddress,
+      tenantName: parsedTenantName,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      addressLineOne,
+      addressLineTwo,
+      postCode,
+      doorNumber,
+      townCity,
+      tenantUrl,
+      tenantId: item.id,
+    })
 
-  await publishTenantRegisteredLogEvent({
-    emailAddress: item.emailAddress,
-    tenantName: parsedTenantName,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    addressLineOne,
-    addressLineTwo,
-    postCode,
-    doorNumber,
-    townCity,
-    tier: item.tier,
-    tenantUrl,
-    tenantId: item.id,
-  })
+    await publishTenantRegisteredLogEvent({
+      emailAddress: item.emailAddress,
+      tenantName: parsedTenantName,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      addressLineOne,
+      addressLineTwo,
+      postCode,
+      doorNumber,
+      townCity,
+      tier: item.tier,
+      tenantUrl,
+      tenantId: item.id,
+    })
 
-  const result = {
-    emailAddress: item.emailAddress,
-    tenantName: parsedTenantName,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    addressLineOne,
-    addressLineTwo,
-    postCode,
-    doorNumber,
-    townCity,
-    tier: item.tier,
-    tenantUrl,
-    tenantId: item.id,
-  }
+    const result = {
+      emailAddress: item.emailAddress,
+      tenantName: parsedTenantName,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      addressLineOne,
+      addressLineTwo,
+      postCode,
+      doorNumber,
+      townCity,
+      tier: item.tier,
+      tenantUrl,
+      tenantId: item.id,
+    }
 
-  return {
-    body: {
-      message: 'Tenant created successfully!',
-      result,
-    },
-    statusCode: HttpStatusCode.CREATED,
+    return {
+      body: {
+        message: 'Tenant created successfully!',
+        result,
+      },
+      statusCode: HttpStatusCode.CREATED,
+    }
+  } catch (error) {
+    console.log('REGISTER TENANT ERROR: ', error)
+
+    await deleteTenant({
+      tenantUrl,
+      hostedZoneUrl: url,
+      hostedZoneId,
+      tableName,
+      dbClient,
+      tenantId: item.id,
+    })
+
+    return {
+      body: {
+        message: 'Tenant failed to create.',
+        result: null,
+      },
+      statusCode: HttpStatusCode.INTERNAL_SERVER,
+    }
   }
 }
