@@ -23,17 +23,22 @@ export const checkIfTenantAdminExists = async (props: CheckIfTenantAdminExistsPr
   const secretsManager = new SecretsManager()
   const apiKey = await secretsManager.getSecretValue(params).promise()
 
-  const parsedApiKey = JSON.parse(apiKey.SecretString || '') as SecretResult
+  try {
+    const parsedApiKey = JSON.parse(apiKey.SecretString || '') as SecretResult
 
-  const result: AxiosResponse = await httpClient.request({
-    url: `${usersApiUrl}/get-account-by-email/${emailToCheck}`,
-    method: 'GET',
-    headers: {
-      ['x-api-key']: parsedApiKey.api_key,
-    },
-  })
+    const result: AxiosResponse = await httpClient.request({
+      url: `${usersApiUrl}/get-account-by-email/${emailToCheck}`,
+      method: 'GET',
+      headers: {
+        ['x-api-key']: parsedApiKey.api_key,
+      },
+    })
 
-  console.log('GET ACCOUNT BY EMAIL RESULT:', result)
+    console.log('GET ACCOUNT BY EMAIL RESULT:', result)
 
-  return result.status === 200
+    return result.status === 200
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 }

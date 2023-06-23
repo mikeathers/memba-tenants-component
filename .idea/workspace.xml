@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/check-if-tenant-admin-exists.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/delete-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/delete-tenant.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validators/tenant.validator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validators/tenant.validator.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +137,7 @@
       <workItem from="1687268300855" duration="5803000" />
       <workItem from="1687328691800" duration="4534000" />
       <workItem from="1687356524213" duration="21000" />
-      <workItem from="1687448636928" duration="8266000" />
+      <workItem from="1687448636928" duration="9342000" />
     </task>
     <servers />
   </component>
