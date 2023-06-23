@@ -112,6 +112,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     doorNumber,
     townCity,
     tenantUrl,
+    tenantId: item.id,
   })
 
   await publishTenantRegisteredLogEvent({
@@ -141,7 +142,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     townCity,
     tier: item.tier,
     tenantUrl,
-    id: item.id,
+    tenantId: item.id,
   }
 
   return {
