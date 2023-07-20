@@ -4,6 +4,7 @@ import {APIGatewayProxyEvent, APIGatewayProxyResult} from 'aws-lambda'
 import {HttpStatusCode} from '../types'
 import {addCorsHeader, errorHasMessage} from '../utils'
 import {registerTenant} from './functions/register-tenant'
+import {createTenant} from './functions/create-tenant'
 
 const dbClient = new DynamoDB.DocumentClient()
 
@@ -24,6 +25,14 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
             event,
             dbClient,
             hostedZoneId: process.env.HOSTED_ZONE_ID ?? '',
+            stage: process.env.STAGE ?? '',
+          })
+          result.body = JSON.stringify(response.body)
+          result.statusCode = response.statusCode
+        } else if (event.path.includes('create-tenant') && event.body) {
+          const response = await createTenant({
+            event,
+            dbClient,
             stage: process.env.STAGE ?? '',
           })
           result.body = JSON.stringify(response.body)

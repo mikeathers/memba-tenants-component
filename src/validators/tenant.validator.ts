@@ -1,6 +1,16 @@
-import {RegisterTenantRequest} from '../types'
+import {CreateTenantRequest, RegisterTenantRequest} from '../types'
 
 export class MissingFieldError extends Error {}
+
+// eslint-disable-next-line
+export const validateCreateTenantRequest = (arg: CreateTenantRequest): void => {
+  if (!arg.id) {
+    throw new MissingFieldError('Value for Id required!')
+  }
+  if (arg.admins.length < 1) {
+    throw new MissingFieldError('Atleast one tenant admin required!')
+  }
+}
 
 // eslint-disable-next-line
 export const validateRegisterTenantRequest = (arg: RegisterTenantRequest): void => {

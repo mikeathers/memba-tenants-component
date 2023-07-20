@@ -1,6 +1,12 @@
 import {PromiseResult} from 'aws-sdk/lib/request'
 import {AWSError, DynamoDB} from 'aws-sdk'
 
+export type CreateTenantRequest = {
+  id: string
+  admins: string[]
+  apps: string[]
+}
+
 export type RegisterTenantRequest = {
   id: string
   tenantName: string

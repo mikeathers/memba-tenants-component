@@ -90,7 +90,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   } = item
 
   try {
-    await createTenantInDb({dbClient, item: {...rest}, tableName})
+    // await createTenantInDb({dbClient, item: {...rest}, tableName})
 
     await createARecord({
       tenantUrl,
@@ -115,20 +115,20 @@ export const registerTenant = async (props: RegisterTenantProps) => {
       tenantId: item.id,
     })
 
-    await publishTenantRegisteredLogEvent({
-      emailAddress: item.emailAddress,
-      tenantName: parsedTenantName,
-      firstName: item.firstName,
-      lastName: item.lastName,
-      addressLineOne,
-      addressLineTwo,
-      postCode,
-      doorNumber,
-      townCity,
-      tier: item.tier,
-      tenantUrl,
-      tenantId: item.id,
-    })
+    // await publishTenantRegisteredLogEvent({
+    //   emailAddress: item.emailAddress,
+    //   tenantName: parsedTenantName,
+    //   firstName: item.firstName,
+    //   lastName: item.lastName,
+    //   addressLineOne,
+    //   addressLineTwo,
+    //   postCode,
+    //   doorNumber,
+    //   townCity,
+    //   tier: item.tier,
+    //   tenantUrl,
+    //   tenantId: item.id,
+    // })
 
     const result = {
       emailAddress: item.emailAddress,
