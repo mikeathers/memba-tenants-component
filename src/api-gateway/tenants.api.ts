@@ -73,7 +73,7 @@ export class TenantsApi {
       },
     })
 
-    const apiKeyName = 'x-api-key'
+    const apiKeyName = 'tenants-api-key'
 
     const apiKey = new ApiKey(scope, `TenantsApiKey`, {
       apiKeyName,
