@@ -86,9 +86,9 @@ export class TenantsApi {
       defaultCorsPreflightOptions: optionsWithCors,
     })
 
-    authorizer._attachToApi(api)
-
     tenantsLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
+
+    authorizer._attachToApi(api)
 
     const apiKeyMethodOptions: MethodOptions = {
       apiKeyRequired: true,
@@ -135,8 +135,9 @@ export class TenantsApi {
       .addMethod('POST', new LambdaIntegration(tenantsLambda), apiKeyMethodOptions)
 
     const getTenant = api.root.addResource('get-tenant')
-    getTenant.addResource('{id}')
-    getTenant.addMethod('GET', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
+    getTenant
+      .addResource('{id}')
+      .addMethod('GET', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
 
     new ARecord(scope, `${CONFIG.STACK_PREFIX}ApiAliasRecord`, {
       recordName: domainName,
