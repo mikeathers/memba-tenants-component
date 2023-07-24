@@ -14,12 +14,16 @@ export const getAccountById = async (
   const queryKey = 'id'
   const queryValue = id
 
+  console.log({queryKey, queryValue})
+
   const queryResponse = await getByPrimaryKey({
     queryKey,
     queryValue,
     tableName,
     dbClient,
   })
+
+  console.log('GET BY ID RESPONSE', queryResponse)
 
   if (queryResponse && queryResponse.Item) {
     return {
