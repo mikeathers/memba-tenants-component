@@ -25,11 +25,11 @@ export const getAccountById = async (
 
   console.log('GET BY ID RESPONSE', queryResponse)
 
-  if (queryResponse && queryResponse.Item) {
+  if (queryResponse) {
     return {
       body: {
         message: 'Account has been found.',
-        result: queryResponse.Item,
+        result: queryResponse,
       },
       statusCode: HttpStatusCode.OK,
     }
