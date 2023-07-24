@@ -12,8 +12,8 @@ interface ConfigProps {
   SHARED_EVENT_BUS_NAME: string
   DEV_USERS_API_SECRET_NAME: string
   USERS_API_SECRET_NAME: string
-  DEV_USER_POOL_ID: string
-  PROD_USER_POOL_ID: string
+  DEV_USER_POOL_ARN: string
+  PROD_USER_POOL_ARN: string
 }
 
 const CONFIG: ConfigProps = {
@@ -30,8 +30,10 @@ const CONFIG: ConfigProps = {
   DEV_USERS_API_URL: 'https://users.dev.memba.co.uk',
   DEV_USERS_API_SECRET_NAME: 'UsersApiSecret2148637E-4Wtmuz6by0ym',
   USERS_API_SECRET_NAME: 'UsersApiSecret2148637E-QyLf435WqwN1',
-  DEV_USER_POOL_ID: 'eu-west-2_O3gVXNPRu',
-  PROD_USER_POOL_ID: 'eu-west-2_eWg0ysJay',
+  DEV_USER_POOL_ARN:
+    'arn:aws:cognito-idp:eu-west-2:544312030237:userpool/eu-west-2_O3gVXNPRu',
+  PROD_USER_POOL_ARN:
+    'arn:aws:cognito-idp:eu-west-2:635800996936:userpool/eu-west-2_eWg0ysJay',
 }
 
 export default CONFIG

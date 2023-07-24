@@ -37,12 +37,12 @@ export class TenantsApi {
   private createTenantsApi(props: TenantsApiProps) {
     const {scope, stage, certificate, tenantsLambda, hostedZone} = props
     const restApiName = `${CONFIG.STACK_PREFIX}-Api`
-    const userPoolId =
-      stage === 'prod' ? CONFIG.PROD_USER_POOL_ID : CONFIG.DEV_USER_POOL_ID
-    const userPool = UserPool.fromUserPoolId(
+    const userPoolArn =
+      stage === 'prod' ? CONFIG.PROD_USER_POOL_ARN : CONFIG.DEV_USER_POOL_ARN
+    const userPool = UserPool.fromUserPoolArn(
       scope,
       `${CONFIG.STACK_PREFIX}UserPool`,
-      userPoolId,
+      userPoolArn,
     )
 
     const authorizer = new CognitoUserPoolsAuthorizer(
@@ -134,9 +134,9 @@ export class TenantsApi {
       .addResource('create-tenant')
       .addMethod('POST', new LambdaIntegration(tenantsLambda), apiKeyMethodOptions)
 
-    api.root
-      .addResource('get-tenant')
-      .addMethod('GET', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
+    const getTenant = api.root.addResource('get-tenant')
+    getTenant.addResource('{id}')
+    getTenant.addMethod('GET', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
 
     new ARecord(scope, `${CONFIG.STACK_PREFIX}ApiAliasRecord`, {
       recordName: domainName,
