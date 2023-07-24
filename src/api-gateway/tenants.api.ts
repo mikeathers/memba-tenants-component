@@ -1,6 +1,8 @@
 import CONFIG from '../config'
 import {
   ApiKey,
+  AuthorizationType,
+  CognitoUserPoolsAuthorizer,
   Cors,
   CorsOptions,
   LambdaIntegration,
@@ -17,6 +19,7 @@ import {ICertificate} from 'aws-cdk-lib/aws-certificatemanager'
 import {ServicePrincipal} from 'aws-cdk-lib/aws-iam'
 import {ApiGateway} from 'aws-cdk-lib/aws-route53-targets'
 import {Secret} from 'aws-cdk-lib/aws-secretsmanager'
+import {UserPool} from 'aws-cdk-lib/aws-cognito'
 
 interface TenantsApiProps {
   scope: Construct
@@ -34,6 +37,30 @@ export class TenantsApi {
   private createTenantsApi(props: TenantsApiProps) {
     const {scope, stage, certificate, tenantsLambda, hostedZone} = props
     const restApiName = `${CONFIG.STACK_PREFIX}-Api`
+    const userPoolId =
+      stage === 'prod' ? CONFIG.PROD_USER_POOL_ID : CONFIG.DEV_USER_POOL_ID
+    const userPool = UserPool.fromUserPoolId(
+      scope,
+      `${CONFIG.STACK_PREFIX}UserPool`,
+      userPoolId,
+    )
+
+    const authorizer = new CognitoUserPoolsAuthorizer(
+      scope,
+      `${CONFIG.STACK_PREFIX}ApiAuthorizer`,
+      {
+        cognitoUserPools: [userPool],
+        authorizerName: `${CONFIG.STACK_PREFIX}ApiAuthorizer`,
+        identitySource: 'method.request.header.Authorization',
+      },
+    )
+
+    const cognitoMethodOptions: MethodOptions = {
+      authorizationType: AuthorizationType.COGNITO,
+      authorizer: {
+        authorizerId: authorizer.authorizerId,
+      },
+    }
 
     const optionsWithCors: CorsOptions = {
       allowOrigins: Cors.ALL_ORIGINS,
@@ -58,6 +85,8 @@ export class TenantsApi {
       },
       defaultCorsPreflightOptions: optionsWithCors,
     })
+
+    authorizer._attachToApi(api)
 
     tenantsLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
 
@@ -104,6 +133,10 @@ export class TenantsApi {
     api.root
       .addResource('create-tenant')
       .addMethod('POST', new LambdaIntegration(tenantsLambda), apiKeyMethodOptions)
+
+    api.root
+      .addResource('get-tenant')
+      .addMethod('GET', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
 
     new ARecord(scope, `${CONFIG.STACK_PREFIX}ApiAliasRecord`, {
       recordName: domainName,
