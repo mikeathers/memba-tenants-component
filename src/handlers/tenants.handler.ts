@@ -5,7 +5,7 @@ import {HttpStatusCode} from '../types'
 import {addCorsHeader, errorHasMessage} from '../utils'
 import {registerTenant} from './functions/register-tenant'
 import {createTenant} from './functions/create-tenant'
-import {getAccountById} from './functions/get-account-by-id'
+import {getTenantById} from './functions/get-tenant-by-id'
 
 const dbClient = new DynamoDB.DocumentClient()
 
@@ -43,7 +43,7 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
       }
       case 'GET': {
         if (event.pathParameters?.id) {
-          const response = await getAccountById({id: event.pathParameters.id, dbClient})
+          const response = await getTenantById({id: event.pathParameters.id, dbClient})
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode
         }

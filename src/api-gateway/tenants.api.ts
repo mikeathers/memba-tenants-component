@@ -139,6 +139,11 @@ export class TenantsApi {
       .addResource('{id}')
       .addMethod('GET', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
 
+    const getTenantById = api.root.addResource('get-tenant-by-id')
+    getTenantById
+      .addResource('{id}')
+      .addMethod('GET', new LambdaIntegration(tenantsLambda), apiKeyMethodOptions)
+
     new ARecord(scope, `${CONFIG.STACK_PREFIX}ApiAliasRecord`, {
       recordName: domainName,
       zone: hostedZone,

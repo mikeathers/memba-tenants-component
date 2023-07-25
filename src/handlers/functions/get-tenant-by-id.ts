@@ -6,9 +6,7 @@ interface GetAccountByIdProps {
   id: string
   dbClient: DynamoDB.DocumentClient
 }
-export const getAccountById = async (
-  props: GetAccountByIdProps,
-): Promise<QueryResult> => {
+export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryResult> => {
   const {id, dbClient} = props
   const tableName = process.env.TABLE_NAME ?? ''
   const queryKey = 'id'
