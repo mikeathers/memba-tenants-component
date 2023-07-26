@@ -28,8 +28,9 @@ export class MembaTenantsComponentStack extends Stack {
 
     const userPoolArn =
       stage === 'prod' ? CONFIG.PROD_USER_POOL_ARN : CONFIG.DEV_USER_POOL_ARN
+
     const userPool = UserPool.fromUserPoolArn(
-      scope,
+      this,
       `${CONFIG.STACK_PREFIX}UserPool`,
       userPoolArn,
     )
