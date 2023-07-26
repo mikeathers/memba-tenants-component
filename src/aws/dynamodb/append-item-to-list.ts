@@ -21,7 +21,7 @@ export const appendItemToList = async <T>(props: AppendItemToListProps<T>) => {
       [expressionAtrrName]: expressionAtrrValue,
     },
     ExpressionAttributeValues: {
-      ':item': itemToAppend,
+      ':item': [itemToAppend],
       ':empty_list': [],
     },
   }
