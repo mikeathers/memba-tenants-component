@@ -73,6 +73,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
       id: uuidv4(),
       url: gymUrl,
       tier: item.tier,
+      type: 'gym-management',
     }
 
     const updatedTenant = await appendItemToList({

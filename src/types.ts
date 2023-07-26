@@ -40,6 +40,7 @@ export type MembaApp = {
   id: string
   url: string
   tier: string
+  type: 'gym-management'
 }
 
 export type CreateTenantAdminAndUserGroupRequest = Omit<
