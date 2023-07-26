@@ -71,7 +71,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
       name: item.gymName,
       memberships: item.memberships,
       id: uuidv4(),
-      url: gymUrl,
+      url: `https://${gymUrl}`,
       tier: item.tier,
       type: 'gym-management',
     }
