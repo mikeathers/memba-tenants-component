@@ -38,6 +38,7 @@ export const createTenant = async (props: CreateTenantProps) => {
 
   const item = JSON.parse(event.body) as CreateTenantRequest
   item.id = uuidv4()
+  item.apps = []
 
   validateCreateTenantRequest(item)
 
