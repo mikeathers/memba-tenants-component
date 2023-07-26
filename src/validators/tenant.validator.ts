@@ -1,4 +1,4 @@
-import {CreateTenantRequest, RegisterTenantRequest} from '../types'
+import {CreateGymAppRequest, CreateTenantRequest, RegisterTenantRequest} from '../types'
 
 export class MissingFieldError extends Error {}
 
@@ -34,5 +34,20 @@ export const validateRegisterTenantRequest = (arg: RegisterTenantRequest): void 
   }
   if (!arg.password) {
     throw new MissingFieldError('Value for password required!')
+  }
+}
+
+export const validateCreateGymAppRequest = (arg: CreateGymAppRequest): void => {
+  if (!arg.gymName) {
+    throw new MissingFieldError('Value for gymName is required')
+  }
+  if (!arg.tier) {
+    throw new MissingFieldError('Value for tier is required')
+  }
+  if (!arg.tenantId) {
+    throw new MissingFieldError('Value for tenantId is required')
+  }
+  if (!arg.memberships) {
+    throw new MissingFieldError('Value for memberships is required')
   }
 }

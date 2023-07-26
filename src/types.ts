@@ -22,6 +22,26 @@ export type RegisterTenantRequest = {
   postCode: string
 }
 
+export type Membership = {
+  name: string
+  price: string
+}
+
+export type CreateGymAppRequest = {
+  tenantId: string
+  gymName: string
+  tier: string
+  memberships: Membership[]
+}
+
+export type MembaApp = {
+  name: string
+  memberships: Membership[]
+  id: string
+  url: string
+  tier: string
+}
+
 export type CreateTenantAdminAndUserGroupRequest = Omit<
   RegisterTenantRequest,
   'id' | 'tenantName' | 'tier'

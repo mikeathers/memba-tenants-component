@@ -43,7 +43,7 @@ export const createARecordForDistribution = (
 }
 
 export const getARecord = async (props: GetARecordProps) => {
-  const {hostedZoneId, tenantUrl} = props
+  const {hostedZoneId, aRecord} = props
   const params = {
     HostedZoneId: hostedZoneId,
   }
@@ -53,25 +53,25 @@ export const getARecord = async (props: GetARecordProps) => {
   console.log('LISTED ITEMS: ', response)
 
   if (response.ResourceRecordSets) {
-    return response.ResourceRecordSets.find((item) => item.Name?.includes(tenantUrl))
+    return response.ResourceRecordSets.find((item) => item.Name?.includes(aRecord))
   }
 
   return null
 }
 
 export const createARecord = async (props: {
-  tenantUrl: string
+  aRecord: string
   hostedZoneUrl: string
   hostedZoneId: string
 }) => {
-  const {tenantUrl, hostedZoneUrl, hostedZoneId} = props
+  const {aRecord, hostedZoneUrl, hostedZoneId} = props
   const input = {
     ChangeBatch: {
       Changes: [
         {
           Action: 'CREATE',
           ResourceRecordSet: {
-            Name: tenantUrl,
+            Name: aRecord,
             AliasTarget: {
               HostedZoneId: hostedZoneId,
               DNSName: hostedZoneUrl,
@@ -90,13 +90,13 @@ export const createARecord = async (props: {
 }
 
 export const deleteARecord = async (props: {
-  tenantUrl: string
+  aRecord: string
   hostedZoneUrl: string
   hostedZoneId: string
 }) => {
-  const {tenantUrl, hostedZoneUrl, hostedZoneId} = props
+  const {aRecord, hostedZoneUrl, hostedZoneId} = props
 
-  const tenantARecordExists = await getARecord({hostedZoneId, tenantUrl})
+  const tenantARecordExists = await getARecord({hostedZoneId, aRecord})
 
   console.log({tenantARecordExists})
 
@@ -108,7 +108,7 @@ export const deleteARecord = async (props: {
         {
           Action: 'DELETE',
           ResourceRecordSet: {
-            Name: tenantUrl,
+            Name: aRecord,
             AliasTarget: {
               HostedZoneId: hostedZoneId,
               DNSName: hostedZoneUrl,
@@ -129,5 +129,5 @@ export const deleteARecord = async (props: {
 
 interface GetARecordProps {
   hostedZoneId: string
-  tenantUrl: string
+  aRecord: string
 }

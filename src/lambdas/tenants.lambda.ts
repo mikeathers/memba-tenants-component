@@ -9,6 +9,7 @@ import {Effect, PolicyStatement} from 'aws-cdk-lib/aws-iam'
 import CONFIG from '../config'
 import {Queue} from 'aws-cdk-lib/aws-sqs'
 import {ITable} from 'aws-cdk-lib/aws-dynamodb'
+import {IUserPool} from 'aws-cdk-lib/aws-cognito'
 
 interface TenantsLambdaProps {
   scope: Construct
@@ -17,6 +18,7 @@ interface TenantsLambdaProps {
   hostedZoneId: string
   eventBusArn: string
   deadLetterQueue: Queue
+  userPool: IUserPool
 }
 
 export class TenantsLambda {
@@ -27,11 +29,14 @@ export class TenantsLambda {
   }
 
   private createTenantsLambda(props: TenantsLambdaProps): NodejsFunction {
-    const {scope, stage, hostedZoneId, table, eventBusArn, deadLetterQueue} = props
+    const {scope, stage, hostedZoneId, table, eventBusArn, deadLetterQueue, userPool} =
+      props
     const lambdaName = `${CONFIG.STACK_PREFIX}Lambda`
     const usersApiUrl = stage === 'prod' ? CONFIG.USERS_API_URL : CONFIG.DEV_USERS_API_URL
     const usersApiSecretName =
       stage === 'prod' ? CONFIG.USERS_API_SECRET_NAME : CONFIG.DEV_USERS_API_SECRET_NAME
+    const userGroupRoleArn =
+      stage === 'prod' ? CONFIG.USERS_GROUP_ROLE_ARN : CONFIG.DEV_USER_GROUP_ROLE_ARN
 
     const lambdaProps: NodejsFunctionProps = {
       functionName: lambdaName,
@@ -43,6 +48,8 @@ export class TenantsLambda {
         STAGE: stage,
         USERS_API_URL: usersApiUrl,
         USERS_API_SECRET_NAME: usersApiSecretName,
+        USERS_GROUP_ROLE_ARN: userGroupRoleArn,
+        USER_POOL_ID: userPool.userPoolId,
       },
       runtime: Runtime.NODEJS_16_X,
       reservedConcurrentExecutions: 1,
@@ -81,6 +88,26 @@ export class TenantsLambda {
       new PolicyStatement({
         actions: ['secretsmanager:GetSecretValue'],
         resources: ['*'],
+        effect: Effect.ALLOW,
+      }),
+    )
+
+    tenantsLambda.addToRolePolicy(
+      new PolicyStatement({
+        actions: [
+          'cognito-idp:CreateGroup',
+          'cognito-idp:SignUp',
+          'cognito-idp:AdminAddUserToGroup',
+        ],
+        resources: [userPool.userPoolArn],
+        effect: Effect.ALLOW,
+      }),
+    )
+
+    tenantsLambda.addToRolePolicy(
+      new PolicyStatement({
+        actions: ['iam:PassRole'],
+        resources: [userGroupRoleArn],
         effect: Effect.ALLOW,
       }),
     )

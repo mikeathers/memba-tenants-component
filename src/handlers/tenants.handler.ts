@@ -6,11 +6,14 @@ import {addCorsHeader, errorHasMessage} from '../utils'
 import {registerTenant} from './functions/register-tenant'
 import {createTenant} from './functions/create-tenant'
 import {getTenantById} from './functions/get-tenant-by-id'
+import {createGymApp} from './functions/create-gym-app'
 
 const dbClient = new DynamoDB.DocumentClient()
 
 async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   console.log('request:', JSON.stringify(event, null, 2))
+  const hostedZoneId = process.env.HOSTED_ZONE_ID ?? ''
+  const stage = process.env.STAGE ?? ''
 
   const result: APIGatewayProxyResult = {
     statusCode: HttpStatusCode.OK,
@@ -21,12 +24,16 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
   try {
     switch (event.httpMethod) {
       case 'POST': {
-        if (event.path.includes('register-tenant') && event.body) {
+        if (event.path.includes('create-gym-app') && event.body) {
+          const response = await createGymApp({event, hostedZoneId, stage, dbClient})
+          result.body = JSON.stringify(response.body)
+          result.statusCode = response.statusCode
+        } else if (event.path.includes('register-tenant') && event.body) {
           const response = await registerTenant({
             event,
             dbClient,
-            hostedZoneId: process.env.HOSTED_ZONE_ID ?? '',
-            stage: process.env.STAGE ?? '',
+            hostedZoneId,
+            stage,
           })
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode
@@ -34,7 +41,7 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
           const response = await createTenant({
             event,
             dbClient,
-            stage: process.env.STAGE ?? '',
+            stage,
           })
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode

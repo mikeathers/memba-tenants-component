@@ -48,7 +48,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
   })
 
   const tenantARecordAlreadyExists = await getARecord({
-    tenantUrl: item.tenantName,
+    aRecord: item.tenantName,
     hostedZoneId,
   })
 
@@ -93,7 +93,7 @@ export const registerTenant = async (props: RegisterTenantProps) => {
     // await createTenantInDb({dbClient, item: {...rest}, tableName})
 
     await createARecord({
-      tenantUrl,
+      aRecord: tenantUrl,
       hostedZoneUrl: url,
       hostedZoneId,
     })

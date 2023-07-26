@@ -15,7 +15,7 @@ export const deleteTenant = async (props: DeleteTenantProps) => {
   const {tenantUrl, hostedZoneUrl, hostedZoneId, tableName, dbClient, tenantId} = props
 
   try {
-    await deleteARecord({tenantUrl, hostedZoneUrl, hostedZoneId})
+    await deleteARecord({aRecord: tenantUrl, hostedZoneUrl, hostedZoneId})
 
     const accountExists = await getByPrimaryKey({
       queryKey: 'id',

@@ -14,6 +14,8 @@ interface ConfigProps {
   USERS_API_SECRET_NAME: string
   DEV_USER_POOL_ARN: string
   PROD_USER_POOL_ARN: string
+  USERS_GROUP_ROLE_ARN: string
+  DEV_USER_GROUP_ROLE_ARN: string
 }
 
 const CONFIG: ConfigProps = {
@@ -34,6 +36,8 @@ const CONFIG: ConfigProps = {
     'arn:aws:cognito-idp:eu-west-2:544312030237:userpool/eu-west-2_O3gVXNPRu',
   PROD_USER_POOL_ARN:
     'arn:aws:cognito-idp:eu-west-2:635800996936:userpool/eu-west-2_eWg0ysJay',
+  DEV_USER_GROUP_ROLE_ARN: 'arn:aws:iam::544312030237:role/Users-UsersGroupRole,',
+  USERS_GROUP_ROLE_ARN: 'arn:aws:iam::635800996936:role/Users-UsersGroupRole',
 }
 
 export default CONFIG

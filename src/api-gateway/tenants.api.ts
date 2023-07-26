@@ -16,10 +16,10 @@ import {Construct} from 'constructs'
 import {IFunction} from 'aws-cdk-lib/aws-lambda'
 import {ARecord, IHostedZone, RecordTarget} from 'aws-cdk-lib/aws-route53'
 import {ICertificate} from 'aws-cdk-lib/aws-certificatemanager'
-import {ServicePrincipal} from 'aws-cdk-lib/aws-iam'
+import {IUser, ServicePrincipal} from 'aws-cdk-lib/aws-iam'
 import {ApiGateway} from 'aws-cdk-lib/aws-route53-targets'
 import {Secret} from 'aws-cdk-lib/aws-secretsmanager'
-import {UserPool} from 'aws-cdk-lib/aws-cognito'
+import {IUserPool, UserPool} from 'aws-cdk-lib/aws-cognito'
 
 interface TenantsApiProps {
   scope: Construct
@@ -27,6 +27,7 @@ interface TenantsApiProps {
   certificate: ICertificate
   hostedZone: IHostedZone
   tenantsLambda: IFunction
+  userPool: IUserPool
 }
 
 export class TenantsApi {
@@ -35,15 +36,8 @@ export class TenantsApi {
   }
 
   private createTenantsApi(props: TenantsApiProps) {
-    const {scope, stage, certificate, tenantsLambda, hostedZone} = props
+    const {scope, stage, certificate, tenantsLambda, hostedZone, userPool} = props
     const restApiName = `${CONFIG.STACK_PREFIX}-Api`
-    const userPoolArn =
-      stage === 'prod' ? CONFIG.PROD_USER_POOL_ARN : CONFIG.DEV_USER_POOL_ARN
-    const userPool = UserPool.fromUserPoolArn(
-      scope,
-      `${CONFIG.STACK_PREFIX}UserPool`,
-      userPoolArn,
-    )
 
     const authorizer = new CognitoUserPoolsAuthorizer(
       scope,
@@ -125,6 +119,10 @@ export class TenantsApi {
 
     const usagePlan = api.addUsagePlan('TenantsUsagePlan', usagePlanProps)
     usagePlan.addApiKey(apiKey)
+
+    api.root
+      .addResource('create-gym-app')
+      .addMethod('POST', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
 
     api.root
       .addResource('register-tenant')

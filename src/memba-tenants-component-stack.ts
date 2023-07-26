@@ -7,6 +7,7 @@ import {TenantsLambda} from './lambdas'
 import {TenantsApi} from './api-gateway'
 import {Databases} from './databases'
 import {Queue} from 'aws-cdk-lib/aws-sqs'
+import {UserPool} from 'aws-cdk-lib/aws-cognito'
 
 interface MembaTenantsComponentStackProps extends StackProps {
   stage: string
@@ -24,6 +25,14 @@ export class MembaTenantsComponentStack extends Stack {
 
     const hostedZoneUrl = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
     const hostedZone = getHostedZone({scope: this, domainName: hostedZoneUrl})
+
+    const userPoolArn =
+      stage === 'prod' ? CONFIG.PROD_USER_POOL_ARN : CONFIG.DEV_USER_POOL_ARN
+    const userPool = UserPool.fromUserPoolArn(
+      scope,
+      `${CONFIG.STACK_PREFIX}UserPool`,
+      userPoolArn,
+    )
 
     const apiCertificate = createCertificate({
       scope: this,
@@ -47,6 +56,7 @@ export class MembaTenantsComponentStack extends Stack {
       table: database.tenantsTable,
       deadLetterQueue,
       eventBusArn,
+      userPool,
     })
 
     new TenantsApi({
@@ -55,6 +65,7 @@ export class MembaTenantsComponentStack extends Stack {
       hostedZone,
       certificate: apiCertificate,
       tenantsLambda: tenantsLambda,
+      userPool,
     })
   }
 }
