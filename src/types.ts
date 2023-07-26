@@ -24,7 +24,7 @@ export type RegisterTenantRequest = {
 
 export type Membership = {
   name: string
-  price: string
+  price: number
 }
 
 export type CreateGymAppRequest = {

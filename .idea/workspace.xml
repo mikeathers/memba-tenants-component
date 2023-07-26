@@ -5,26 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/aws/cognito/add-user-to-group.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aws/cognito/create-tenant-user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aws/cognito/create-user-group.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aws/cognito/create-user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aws/cognito/delete-user-group.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aws/cognito/delete-user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aws/cognito/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aws/dynamodb/append-item-to-list.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handlers/functions/create-gym-app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aws/route53/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/aws/route53/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/delete-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/delete-tenant.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/register-tenant.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambdas/tenants.lambda.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/memba-tenants-component-stack.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validators/tenant.validator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validators/tenant.validator.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -166,7 +149,7 @@
       <workItem from="1689837037854" duration="6258000" />
       <workItem from="1689864819420" duration="3536000" />
       <workItem from="1690185372377" duration="1534000" />
-      <workItem from="1690204725767" duration="17172000" />
+      <workItem from="1690204725767" duration="19177000" />
     </task>
     <servers />
   </component>

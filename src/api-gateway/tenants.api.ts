@@ -60,6 +60,7 @@ export class TenantsApi {
       allowOrigins: Cors.ALL_ORIGINS,
       allowMethods: Cors.ALL_METHODS,
       allowHeaders: [
+        ...Cors.DEFAULT_HEADERS,
         'Content-Type',
         'X-Amz-Date',
         'Authorization',
@@ -77,7 +78,6 @@ export class TenantsApi {
         domainName,
         certificate,
       },
-      defaultCorsPreflightOptions: optionsWithCors,
     })
 
     tenantsLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'))
@@ -119,6 +119,8 @@ export class TenantsApi {
 
     const usagePlan = api.addUsagePlan('TenantsUsagePlan', usagePlanProps)
     usagePlan.addApiKey(apiKey)
+
+    api.root.addCorsPreflight(optionsWithCors)
 
     api.root
       .addResource('create-gym-app')
