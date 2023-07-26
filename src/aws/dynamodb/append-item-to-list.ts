@@ -9,16 +9,19 @@ interface AppendItemToListProps<T> {
 }
 export const appendItemToList = async <T>(props: AppendItemToListProps<T>) => {
   const {tableName, itemNameToUpdate, itemId, itemToAppend, dbClient} = props
+  const expressionAtrrName = `#${itemNameToUpdate}`
+  const expressionAtrrValue = `${itemNameToUpdate}`
+
   const params = {
     TableName: tableName,
     Key: {id: itemId},
     ReturnValues: 'ALL_NEW',
     UpdateExpression: `set #${itemNameToUpdate} = list_append(if_not_exists(#${itemNameToUpdate}, :empty_list), :item)`,
     ExpressionAttributeNames: {
-      '#markedLocations': 'markedLocations',
+      [expressionAtrrName]: expressionAtrrValue,
     },
     ExpressionAttributeValues: {
-      ':item': [itemToAppend],
+      ':item': itemToAppend,
       ':empty_list': [],
     },
   }
