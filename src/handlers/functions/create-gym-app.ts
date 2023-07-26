@@ -87,7 +87,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
     return {
       body: {
         message: 'App created successfully!',
-        result: updatedTenant,
+        result: updatedTenant.Attributes,
       },
       statusCode: HttpStatusCode.CREATED,
     }
