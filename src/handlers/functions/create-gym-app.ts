@@ -63,7 +63,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
 
     await createUserGroup({
       userGroupRoleArn,
-      groupName: item.gymName,
+      groupName: parsedGymName,
       userPoolId,
     })
 
