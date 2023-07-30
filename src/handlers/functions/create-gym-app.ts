@@ -1,13 +1,20 @@
 import {DynamoDB} from 'aws-sdk'
 import {APIGatewayProxyEvent} from 'aws-lambda'
-import {CreateGymAppRequest, HttpStatusCode, MembaApp} from '../../types'
+import {CreateGymAppRequest, HttpStatusCode, MembaApp, Tenant} from '../../types'
 import {validateCreateGymAppRequest} from '../../validators'
 import {createARecord, deleteARecord, getARecord} from '../../aws/route53'
 import CONFIG from '../../config'
 import {createUserGroup} from '../../aws/cognito'
-import {appendItemToList} from '../../aws/dynamodb/append-item-to-list'
 import {v4 as uuidv4} from 'uuid'
 import {deleteUserGroup} from '../../aws/cognito/delete-user-group'
+import {publishGymAppLogEvent} from '../../events/publishers/create-gym-app.publisher'
+import {createAppInDb} from './apps'
+import {
+  removeItemFromList,
+  appendItemToList,
+  getByPrimaryKey,
+  removeItem,
+} from '../../aws/dynamodb'
 
 interface CreateGymAppProps {
   hostedZoneId: string
@@ -19,7 +26,8 @@ interface CreateGymAppProps {
 export const createGymApp = async (props: CreateGymAppProps) => {
   const {event, hostedZoneId, stage, dbClient} = props
 
-  const tableName = process.env.TABLE_NAME ?? ''
+  const tenantsTableName = process.env.TENANTS_TABLE_NAME ?? ''
+  const appsTableName = process.env.APPS_TABLE_NAME ?? ''
   const userGroupRoleArn = process.env.USERS_GROUP_ROLE_ARN ?? ''
   const userPoolId = process.env.USER_POOL_ID ?? ''
 
@@ -54,6 +62,16 @@ export const createGymApp = async (props: CreateGymAppProps) => {
   const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
   const gymUrl = `${parsedGymName}.${url}`
 
+  const newApp: MembaApp = {
+    name: item.gymName,
+    memberships: item.memberships,
+    id: uuidv4(),
+    url: `https://${gymUrl}`,
+    tier: item.tier,
+    type: 'gym-management',
+    tenantId: item.tenantId,
+  }
+
   try {
     await createARecord({
       aRecord: gymUrl,
@@ -67,22 +85,17 @@ export const createGymApp = async (props: CreateGymAppProps) => {
       userPoolId,
     })
 
-    const newApp: MembaApp = {
-      name: item.gymName,
-      memberships: item.memberships,
-      id: uuidv4(),
-      url: `https://${gymUrl}`,
-      tier: item.tier,
-      type: 'gym-management',
-    }
-
     const updatedTenant = await appendItemToList({
       itemId: item.tenantId,
       itemToAppend: newApp,
       itemNameToUpdate: 'apps',
-      tableName,
+      tableName: tenantsTableName,
       dbClient,
     })
+
+    await createAppInDb({dbClient, tableName: appsTableName, item: newApp})
+
+    await publishGymAppLogEvent(item, 'Create')
 
     return {
       body: {
@@ -100,6 +113,22 @@ export const createGymApp = async (props: CreateGymAppProps) => {
       groupName: item.gymName,
       userPoolId,
     })
+
+    const tenant = await getByPrimaryKey({
+      dbClient,
+      tableName: tenantsTableName,
+      queryKey: 'id',
+      queryValue: item.tenantId,
+    })
+    await removeItemFromList({
+      dbClient,
+      listName: 'apps',
+      itemToRemove: newApp,
+      tableName: tenantsTableName,
+      itemId: item.tenantId,
+      list: (tenant as Tenant).apps,
+    })
+    await removeItem({dbClient, tableName: appsTableName, id: newApp.id})
 
     return {
       body: {

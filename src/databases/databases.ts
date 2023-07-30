@@ -5,17 +5,33 @@ import CONFIG from '../config'
 
 export class Databases extends Construct {
   public readonly tenantsTable: ITable
+  public readonly appsTable: ITable
 
   constructor(scope: Construct, id: string) {
     super(scope, id)
 
     this.tenantsTable = this.createTenantsTable({scope: this})
+    this.appsTable = this.createAppsTable({scope: this})
   }
 
   private createTenantsTable(props: {scope: Construct}) {
     const {scope} = props
     const tableName = CONFIG.STACK_PREFIX
-    const tenantsTable = new Table(scope, tableName, {
+    return new Table(scope, tableName, {
+      partitionKey: {
+        name: 'id',
+        type: AttributeType.STRING,
+      },
+      tableName: tableName,
+      removalPolicy: RemovalPolicy.DESTROY,
+      billingMode: BillingMode.PAY_PER_REQUEST,
+    })
+  }
+
+  private createAppsTable(props: {scope: Construct}) {
+    const {scope} = props
+    const tableName = `${CONFIG.STACK_PREFIX}_Apps`
+    const appsTable = new Table(scope, tableName, {
       partitionKey: {
         name: 'id',
         type: AttributeType.STRING,
@@ -25,14 +41,14 @@ export class Databases extends Construct {
       billingMode: BillingMode.PAY_PER_REQUEST,
     })
 
-    tenantsTable.addGlobalSecondaryIndex({
-      indexName: 'tenantName',
+    appsTable.addGlobalSecondaryIndex({
+      indexName: 'url',
       partitionKey: {
-        name: 'tenantName',
+        name: 'url',
         type: AttributeType.STRING,
       },
     })
 
-    return tenantsTable
+    return appsTable
   }
 }

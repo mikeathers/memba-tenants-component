@@ -3,10 +3,10 @@ import {APIGatewayProxyEvent, APIGatewayProxyResult} from 'aws-lambda'
 
 import {HttpStatusCode} from '../types'
 import {addCorsHeader, errorHasMessage} from '../utils'
-import {registerTenant} from './functions/register-tenant'
 import {createTenant} from './functions/create-tenant'
 import {getTenantById} from './functions/get-tenant-by-id'
 import {createGymApp} from './functions/create-gym-app'
+import {getAppByUrl} from './functions/apps/get-app-by-url'
 
 const dbClient = new DynamoDB.DocumentClient()
 
@@ -28,15 +28,6 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
           const response = await createGymApp({event, hostedZoneId, stage, dbClient})
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode
-        } else if (event.path.includes('register-tenant') && event.body) {
-          const response = await registerTenant({
-            event,
-            dbClient,
-            hostedZoneId,
-            stage,
-          })
-          result.body = JSON.stringify(response.body)
-          result.statusCode = response.statusCode
         } else if (event.path.includes('create-tenant') && event.body) {
           const response = await createTenant({
             event,
@@ -49,7 +40,11 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
         break
       }
       case 'GET': {
-        if (event.pathParameters?.id) {
+        if (event.path.includes('get-app') && event.pathParameters?.url) {
+          const response = await getAppByUrl({url: event.pathParameters.url, dbClient})
+          result.body = JSON.stringify(response.body)
+          result.statusCode = response.statusCode
+        } else if (event.path.includes('get-tenant') && event.pathParameters?.id) {
           const response = await getTenantById({id: event.pathParameters.id, dbClient})
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode

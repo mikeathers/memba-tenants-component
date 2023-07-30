@@ -1,19 +1,12 @@
 import {DynamoDB} from 'aws-sdk'
 import {v4 as uuidv4} from 'uuid'
 import {APIGatewayProxyEvent} from 'aws-lambda'
-import {CreateTenantRequest, HttpStatusCode, RegisterTenantRequest} from '../../types'
-import {
-  validateCreateTenantRequest,
-  validateRegisterTenantRequest,
-} from '../../validators'
-import {queryBySecondaryKey} from '../../aws/dynamodb'
+import {CreateTenantRequest, HttpStatusCode} from '../../types'
+import {validateCreateTenantRequest} from '../../validators'
+
 import {publishTenantRegisteredLogEvent} from '../../events/publishers/tenant-registered.publisher'
 import {createTenantInDb} from './create-tenant-in-db'
-import {checkIfTenantAdminExists} from './check-if-tenant-admin-exists'
-import CONFIG from '../../config'
-import {createTenantAdminUserAndUserGroup} from './create-tenant-admin-user-and-user-group'
-import {createARecord, getARecord} from '../../aws/route53'
-import {deleteTenant} from './delete-tenant'
+
 import {rollbackCreateTenant} from './rollback-create-tenant'
 
 interface CreateTenantProps {
@@ -25,7 +18,7 @@ interface CreateTenantProps {
 export const createTenant = async (props: CreateTenantProps) => {
   const {event, stage, dbClient} = props
 
-  const tableName = process.env.TABLE_NAME ?? ''
+  const tableName = process.env.TENANTS_TABLE_NAME ?? ''
 
   if (!event.body) {
     return {

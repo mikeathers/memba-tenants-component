@@ -7,6 +7,17 @@ export type CreateTenantRequest = {
   apps: string[]
 }
 
+export type Tenant = {
+  id: string
+  admins: string[]
+  apps: MembaApp[]
+}
+
+export type CreateAppRequest = {
+  appUrl: string
+  tenantId: string
+}
+
 export type RegisterTenantRequest = {
   id: string
   tenantName: string
@@ -41,6 +52,7 @@ export type MembaApp = {
   url: string
   tier: string
   type: 'gym-management'
+  tenantId: string
 }
 
 export type CreateTenantAdminAndUserGroupRequest = Omit<

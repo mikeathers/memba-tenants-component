@@ -1,16 +1,16 @@
 import {DynamoDB} from 'aws-sdk'
-import {HttpStatusCode, QueryResult} from '../../types'
-import {getByPrimaryKey} from '../../aws/dynamodb'
+import {HttpStatusCode, QueryResult} from '../../../types'
+import {getByPrimaryKey} from '../../../aws/dynamodb'
 
-interface GetAccountByIdProps {
-  id: string
+interface GetAppByUrlProps {
+  url: string
   dbClient: DynamoDB.DocumentClient
 }
-export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryResult> => {
-  const {id, dbClient} = props
+export const getAppByUrl = async (props: GetAppByUrlProps): Promise<QueryResult> => {
+  const {url, dbClient} = props
   const tableName = process.env.TENANTS_TABLE_NAME ?? ''
-  const queryKey = 'id'
-  const queryValue = id
+  const queryKey = 'url'
+  const queryValue = url
 
   console.log({queryKey, queryValue})
 
@@ -26,7 +26,7 @@ export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryRe
   if (queryResponse) {
     return {
       body: {
-        message: 'Account has been found.',
+        message: 'App has been found.',
         result: queryResponse,
       },
       statusCode: HttpStatusCode.OK,
@@ -35,7 +35,7 @@ export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryRe
 
   return {
     body: {
-      message: `Account with Id: ${id} does not exist.`,
+      message: `App with URL: ${url} does not exist.`,
     },
     statusCode: HttpStatusCode.BAD_REQUEST,
   }

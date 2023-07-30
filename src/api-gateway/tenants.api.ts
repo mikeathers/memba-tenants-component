@@ -134,6 +134,11 @@ export class TenantsApi {
       .addResource('create-tenant')
       .addMethod('POST', new LambdaIntegration(tenantsLambda), apiKeyMethodOptions)
 
+    const getAppByUrl = api.root.addResource('get-app')
+    getAppByUrl
+      .addResource('{url}')
+      .addMethod('GET', new LambdaIntegration(tenantsLambda))
+
     const getTenant = api.root.addResource('get-tenant')
     getTenant
       .addResource('{id}')

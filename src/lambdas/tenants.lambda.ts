@@ -14,7 +14,8 @@ import {IUserPool} from 'aws-cdk-lib/aws-cognito'
 interface TenantsLambdaProps {
   scope: Construct
   stage: string
-  table: ITable
+  tenantsTable: ITable
+  appsTable: ITable
   hostedZoneId: string
   eventBusArn: string
   deadLetterQueue: Queue
@@ -29,8 +30,16 @@ export class TenantsLambda {
   }
 
   private createTenantsLambda(props: TenantsLambdaProps): NodejsFunction {
-    const {scope, stage, hostedZoneId, table, eventBusArn, deadLetterQueue, userPool} =
-      props
+    const {
+      scope,
+      stage,
+      hostedZoneId,
+      tenantsTable,
+      appsTable,
+      eventBusArn,
+      deadLetterQueue,
+      userPool,
+    } = props
     const lambdaName = `${CONFIG.STACK_PREFIX}Lambda`
     const usersApiUrl = stage === 'prod' ? CONFIG.USERS_API_URL : CONFIG.DEV_USERS_API_URL
     const usersApiSecretName =
@@ -42,7 +51,8 @@ export class TenantsLambda {
       functionName: lambdaName,
       environment: {
         PRIMARY_KEY: 'id',
-        TABLE_NAME: table.tableName,
+        TENANTS_TABLE_NAME: tenantsTable.tableName,
+        APPS_TABLE_NAME: appsTable.tableName,
         EVENT_BUS_ARN: eventBusArn,
         HOSTED_ZONE_ID: hostedZoneId,
         STAGE: stage,
@@ -74,7 +84,7 @@ export class TenantsLambda {
       ...lambdaProps,
     })
 
-    table.grantReadWriteData(tenantsLambda)
+    tenantsTable.grantReadWriteData(tenantsLambda)
 
     tenantsLambda.addToRolePolicy(
       new PolicyStatement({
