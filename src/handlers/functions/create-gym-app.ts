@@ -44,8 +44,13 @@ export const createGymApp = async (props: CreateGymAppProps) => {
 
   validateCreateGymAppRequest(item)
 
+  const parsedGymName = item.gymName
+    .replace(/[^a-zA-Z ]/g, '')
+    .replace(' ', '')
+    .toLowerCase()
+
   const tenantARecordAlreadyExists = await getARecord({
-    aRecord: item.gymName,
+    aRecord: parsedGymName,
     hostedZoneId,
   })
 
@@ -58,7 +63,6 @@ export const createGymApp = async (props: CreateGymAppProps) => {
     }
   }
 
-  const parsedGymName = item.gymName.replace(' ', '').toLowerCase()
   const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
   const gymUrl = `${parsedGymName}.${url}`
 
