@@ -110,7 +110,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
     await deleteARecord({aRecord: gymUrl, hostedZoneUrl: url, hostedZoneId})
 
     await deleteUserGroup({
-      groupName: item.gymName,
+      groupName: parsedGymName,
       userPoolId,
     })
 
