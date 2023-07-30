@@ -1,6 +1,6 @@
 import {DynamoDB} from 'aws-sdk'
 import {HttpStatusCode, QueryResult} from '../../../types'
-import {getByPrimaryKey, queryBySecondaryKey} from '../../../aws/dynamodb'
+import {queryBySecondaryKey} from '../../../aws/dynamodb'
 
 interface GetAppByUrlProps {
   url: string
@@ -8,7 +8,7 @@ interface GetAppByUrlProps {
 }
 export const getAppByUrl = async (props: GetAppByUrlProps): Promise<QueryResult> => {
   const {url, dbClient} = props
-  const tableName = process.env.TENANTS_TABLE_NAME ?? ''
+  const tableName = process.env.APPS_TABLE_NAME ?? ''
   const queryKey = 'url'
   const queryValue = `https://${url}`
 
