@@ -1,6 +1,6 @@
 import {DynamoDB} from 'aws-sdk'
 import {HttpStatusCode, QueryResult} from '../../../types'
-import {getByPrimaryKey} from '../../../aws/dynamodb'
+import {getByPrimaryKey, queryBySecondaryKey} from '../../../aws/dynamodb'
 
 interface GetAppByUrlProps {
   url: string
@@ -10,24 +10,24 @@ export const getAppByUrl = async (props: GetAppByUrlProps): Promise<QueryResult>
   const {url, dbClient} = props
   const tableName = process.env.TENANTS_TABLE_NAME ?? ''
   const queryKey = 'url'
-  const queryValue = url
+  const queryValue = `https://${url}`
 
   console.log({queryKey, queryValue})
 
-  const queryResponse = await getByPrimaryKey({
+  const queryResponse = await queryBySecondaryKey({
     queryKey,
     queryValue,
     tableName,
     dbClient,
   })
 
-  console.log('GET BY ID RESPONSE', queryResponse)
+  console.log('GET BY URL RESPONSE', queryResponse)
 
-  if (queryResponse) {
+  if (queryResponse && queryResponse.length > 0) {
     return {
       body: {
         message: 'App has been found.',
-        result: queryResponse,
+        result: queryResponse[0],
       },
       statusCode: HttpStatusCode.OK,
     }
