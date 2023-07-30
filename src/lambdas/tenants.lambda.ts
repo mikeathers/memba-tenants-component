@@ -85,6 +85,7 @@ export class TenantsLambda {
     })
 
     tenantsTable.grantReadWriteData(tenantsLambda)
+    appsTable.grantReadWriteData(tenantsLambda)
 
     tenantsLambda.addToRolePolicy(
       new PolicyStatement({
