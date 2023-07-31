@@ -1,6 +1,12 @@
 import {DynamoDB} from 'aws-sdk'
 import {APIGatewayProxyEvent} from 'aws-lambda'
-import {CreateGymAppRequest, HttpStatusCode, MembaApp, Tenant} from '../../types'
+import {
+  CreateGymAppRequest,
+  HttpStatusCode,
+  MembaApp,
+  QueryResult,
+  Tenant,
+} from '../../types'
 import {validateCreateGymAppRequest} from '../../validators'
 import {createARecord, deleteARecord, getARecord} from '../../aws/route53'
 import CONFIG from '../../config'
@@ -23,7 +29,7 @@ interface CreateGymAppProps {
   event: APIGatewayProxyEvent
 }
 
-export const createGymApp = async (props: CreateGymAppProps) => {
+export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResult> => {
   const {event, hostedZoneId, stage, dbClient} = props
 
   const tenantsTableName = process.env.TENANTS_TABLE_NAME ?? ''
@@ -33,9 +39,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
 
   if (!event.body) {
     return {
-      body: {
-        message: 'The event is missing a body and cannot be parsed.',
-      },
+      body: 'The event is missing a body and cannot be parsed.',
       statusCode: HttpStatusCode.INTERNAL_SERVER,
     }
   }
@@ -56,9 +60,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
 
   if (tenantARecordAlreadyExists) {
     return {
-      body: {
-        message: `Gym name already exists`,
-      },
+      body: `Gym name already exists`,
       statusCode: HttpStatusCode.BAD_REQUEST,
     }
   }
@@ -102,10 +104,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
     await publishGymAppLogEvent(item, 'Create')
 
     return {
-      body: {
-        message: 'App created successfully!',
-        result: updatedTenant.Attributes,
-      },
+      body: updatedTenant.Attributes,
       statusCode: HttpStatusCode.CREATED,
     }
   } catch (error) {
@@ -135,10 +134,7 @@ export const createGymApp = async (props: CreateGymAppProps) => {
     await removeItem({dbClient, tableName: appsTableName, id: newApp.id})
 
     return {
-      body: {
-        message: 'App failed to create.',
-        result: null,
-      },
+      body: null,
       statusCode: HttpStatusCode.INTERNAL_SERVER,
     }
   }

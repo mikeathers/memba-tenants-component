@@ -1,7 +1,7 @@
 import {DynamoDB} from 'aws-sdk'
 import {v4 as uuidv4} from 'uuid'
 import {APIGatewayProxyEvent} from 'aws-lambda'
-import {CreateTenantRequest, HttpStatusCode} from '../../types'
+import {CreateTenantRequest, HttpStatusCode, QueryResult} from '../../types'
 import {validateCreateTenantRequest} from '../../validators'
 
 import {publishTenantRegisteredLogEvent} from '../../events/publishers/tenant-registered.publisher'
@@ -15,16 +15,14 @@ interface CreateTenantProps {
   event: APIGatewayProxyEvent
 }
 
-export const createTenant = async (props: CreateTenantProps) => {
+export const createTenant = async (props: CreateTenantProps): Promise<QueryResult> => {
   const {event, stage, dbClient} = props
 
   const tableName = process.env.TENANTS_TABLE_NAME ?? ''
 
   if (!event.body) {
     return {
-      body: {
-        message: 'The event is missing a body and cannot be parsed.',
-      },
+      body: 'The event is missing a body and cannot be parsed.',
       statusCode: HttpStatusCode.INTERNAL_SERVER,
     }
   }
@@ -41,10 +39,7 @@ export const createTenant = async (props: CreateTenantProps) => {
     await publishTenantRegisteredLogEvent(item)
 
     return {
-      body: {
-        message: 'Tenant created successfully!',
-        item,
-      },
+      body: item,
       statusCode: HttpStatusCode.CREATED,
     }
   } catch (error) {
@@ -57,10 +52,7 @@ export const createTenant = async (props: CreateTenantProps) => {
     })
 
     return {
-      body: {
-        message: 'Tenant failed to create.',
-        result: null,
-      },
+      body: null,
       statusCode: HttpStatusCode.INTERNAL_SERVER,
     }
   }

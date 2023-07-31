@@ -25,10 +25,7 @@ export const getAppByUrl = async (props: GetAppByUrlProps): Promise<QueryResult>
 
   if (queryResponse && queryResponse.length > 0) {
     return {
-      body: {
-        message: 'App has been found.',
-        result: queryResponse[0],
-      },
+      body: queryResponse[0],
       statusCode: HttpStatusCode.OK,
     }
   }

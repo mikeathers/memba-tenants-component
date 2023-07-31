@@ -92,13 +92,12 @@ export type UpdateAccountRequest = Pick<
 >
 
 export type QueryResult = {
-  body: {
-    message?: string
-    result?:
-      | PromiseResult<DynamoDB.DocumentClient.PutItemOutput, AWSError>
-      | string
-      | DynamoDB.DocumentClient.AttributeMap
-  }
+  body:
+    | PromiseResult<DynamoDB.DocumentClient.PutItemOutput, AWSError>
+    | DynamoDB.DocumentClient.AttributeMap
+    | string
+    | null
+    | undefined
   statusCode: number
 }
 

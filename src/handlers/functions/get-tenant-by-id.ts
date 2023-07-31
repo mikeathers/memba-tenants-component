@@ -25,18 +25,13 @@ export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryRe
 
   if (queryResponse) {
     return {
-      body: {
-        message: 'Account has been found.',
-        result: queryResponse,
-      },
+      body: queryResponse,
       statusCode: HttpStatusCode.OK,
     }
   }
 
   return {
-    body: {
-      message: `Account with Id: ${id} does not exist.`,
-    },
+    body: `Account with Id: ${id} does not exist.`,
     statusCode: HttpStatusCode.BAD_REQUEST,
   }
 }
