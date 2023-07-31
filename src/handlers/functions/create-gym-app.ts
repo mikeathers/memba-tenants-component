@@ -76,6 +76,7 @@ export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResul
     tier: item.tier,
     type: 'gym-management',
     tenantId: item.tenantId,
+    groupName: parsedGymName,
   }
 
   try {

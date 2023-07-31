@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/handlers/functions/create-gym-app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/create-gym-app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validators/tenant.validator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validators/tenant.validator.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +151,8 @@
       <workItem from="1690185372377" duration="1534000" />
       <workItem from="1690204725767" duration="24015000" />
       <workItem from="1690523708091" duration="1558000" />
-      <workItem from="1690548801675" duration="14137000" />
+      <workItem from="1690548801675" duration="16095000" />
+      <workItem from="1690820661139" duration="188000" />
     </task>
     <servers />
   </component>
