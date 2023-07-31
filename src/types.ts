@@ -43,6 +43,7 @@ export type CreateGymAppRequest = {
   gymName: string
   tier: string
   memberships: Membership[]
+  tenantAdminEmailAddress: string
 }
 
 export type MembaApp = {

@@ -50,4 +50,7 @@ export const validateCreateGymAppRequest = (arg: CreateGymAppRequest): void => {
   if (!arg.memberships) {
     throw new MissingFieldError('Value for memberships is required')
   }
+  if (!arg.tenantAdminEmailAddress) {
+    throw new MissingFieldError('Value for tenantAdminEmailAddress is required')
+  }
 }

@@ -10,7 +10,7 @@ import {
 import {validateCreateGymAppRequest} from '../../validators'
 import {createARecord, deleteARecord, getARecord} from '../../aws/route53'
 import CONFIG from '../../config'
-import {createUserGroup} from '../../aws/cognito'
+import {addUserToGroup, createUserGroup} from '../../aws/cognito'
 import {v4 as uuidv4} from 'uuid'
 import {deleteUserGroup} from '../../aws/cognito/delete-user-group'
 import {publishGymAppLogEvent} from '../../events/publishers/create-gym-app.publisher'
@@ -88,6 +88,12 @@ export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResul
     await createUserGroup({
       userGroupRoleArn,
       groupName: parsedGymName,
+      userPoolId,
+    })
+
+    await addUserToGroup({
+      groups: [parsedGymName],
+      username: item.tenantAdminEmailAddress,
       userPoolId,
     })
 
