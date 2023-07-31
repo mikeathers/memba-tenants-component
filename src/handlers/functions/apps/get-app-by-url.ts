@@ -31,9 +31,7 @@ export const getAppByUrl = async (props: GetAppByUrlProps): Promise<QueryResult>
   }
 
   return {
-    body: {
-      message: `App with URL: ${url} does not exist.`,
-    },
+    body: `App with URL: ${url} does not exist.`,
     statusCode: HttpStatusCode.BAD_REQUEST,
   }
 }
