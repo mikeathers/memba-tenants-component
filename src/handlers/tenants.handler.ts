@@ -7,6 +7,7 @@ import {createTenant} from './functions/create-tenant'
 import {getTenantById} from './functions/get-tenant-by-id'
 import {createGymApp} from './functions/create-gym-app'
 import {getAppByUrl} from './functions/apps/get-app-by-url'
+import {addUserToApp} from './functions/add-user-to-app'
 
 const dbClient = new DynamoDB.DocumentClient()
 
@@ -34,6 +35,10 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
             dbClient,
             stage,
           })
+          result.body = JSON.stringify(response.body)
+          result.statusCode = response.statusCode
+        } else if (event.path.includes('add-user-to-app') && event.body) {
+          const response = await addUserToApp({dbClient, event})
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode
         }

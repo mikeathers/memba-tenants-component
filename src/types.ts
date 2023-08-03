@@ -13,9 +13,9 @@ export type Tenant = {
   apps: MembaApp[]
 }
 
-export type CreateAppRequest = {
-  appUrl: string
-  tenantId: string
+export type AddUserToAppRequest = {
+  appId: string
+  user: MembaUser
 }
 
 export type RegisterTenantRequest = {
@@ -46,6 +46,15 @@ export type CreateGymAppRequest = {
   tenantAdminEmailAddress: string
 }
 
+export type MembaUser = {
+  authenticatedUserId: string
+  firstName: string
+  lastName: string
+  emailAddress: string
+  id: string
+  groupName: string
+}
+
 export type MembaApp = {
   name: string
   memberships: Membership[]
@@ -55,6 +64,7 @@ export type MembaApp = {
   type: 'gym-management'
   tenantId: string
   groupName: string
+  users: MembaUser[] | []
 }
 
 export type CreateTenantAdminAndUserGroupRequest = Omit<
