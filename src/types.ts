@@ -44,15 +44,18 @@ export type CreateGymAppRequest = {
   tier: string
   memberships: Membership[]
   tenantAdminEmailAddress: string
+  user: MembaUser
 }
 
-export type MembaUser = {
+type MembaUser = {
   authenticatedUserId: string
-  firstName: string
-  lastName: string
   emailAddress: string
+  firstName: string
   id: string
-  groupName: string
+  isTenantAdmin: string
+  lastName: string
+  tenantId: string
+  tenant: Tenant
 }
 
 export type MembaApp = {

@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/handlers/functions/add-user-to-app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-gateway/tenants.api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/create-gym-app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/create-gym-app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/tenants.handler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
