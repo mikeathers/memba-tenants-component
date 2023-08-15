@@ -10,7 +10,7 @@ export const getBasicApp = async (props: GetBasicAppProps): Promise<QueryResult>
   const {url, dbClient} = props
   const tableName = process.env.APPS_TABLE_NAME ?? ''
   const queryKey = 'url'
-  const queryValue = `https://${url}`
+  const queryValue = url
 
   console.log({queryKey, queryValue})
 
