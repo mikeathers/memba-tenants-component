@@ -52,7 +52,8 @@ type MembaUser = {
   emailAddress: string
   firstName: string
   id: string
-  isTenantAdmin: string
+  isTenantAdmin: boolean
+  isMembaAdmin: boolean
   lastName: string
   tenantId: string
   tenant: Tenant

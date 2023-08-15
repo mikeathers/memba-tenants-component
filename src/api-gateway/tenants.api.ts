@@ -137,10 +137,15 @@ export class TenantsApi {
       .addResource('add-user-to-app')
       .addMethod('POST', new LambdaIntegration(tenantsLambda), apiKeyMethodOptions)
 
+    const getBasicApp = api.root.addResource('get-basic-app')
+    getBasicApp
+      .addResource('{url}')
+      .addMethod('GET', new LambdaIntegration(tenantsLambda))
+
     const getAppByUrl = api.root.addResource('get-app')
     getAppByUrl
       .addResource('{url}')
-      .addMethod('GET', new LambdaIntegration(tenantsLambda))
+      .addMethod('GET', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
 
     const getTenant = api.root.addResource('get-tenant')
     getTenant
