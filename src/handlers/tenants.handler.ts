@@ -8,7 +8,7 @@ import {getTenantById} from './functions/get-tenant-by-id'
 import {createGymApp} from './functions/create-gym-app'
 import {getAppByUrl} from './functions/apps/get-app-by-url'
 import {addUserToApp} from './functions/add-user-to-app'
-import {getBasicApp} from './functions/apps'
+import {checkIfUserHasAccessToApp, getBasicApp} from './functions/apps'
 
 const dbClient = new DynamoDB.DocumentClient()
 
@@ -70,7 +70,19 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
         break
       }
       case 'GET': {
-        if (event.path.includes('get-basic-app') && event.pathParameters?.url) {
+        if (
+          event.path.includes('has-access') &&
+          event.queryStringParameters?.emailAddress &&
+          event.queryStringParameters?.url
+        ) {
+          const response = await checkIfUserHasAccessToApp({
+            dbClient,
+            url: event.queryStringParameters?.url,
+            emailAddress: event.queryStringParameters?.emailAddress,
+          })
+          result.body = JSON.stringify(response.body)
+          result.statusCode = response.statusCode
+        } else if (event.path.includes('get-basic-app') && event.pathParameters?.url) {
           const response = await getBasicApp({dbClient, url: event.pathParameters.url})
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode

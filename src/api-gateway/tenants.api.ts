@@ -122,7 +122,17 @@ export class TenantsApi {
     usagePlan.addApiKey(apiKey)
 
     api.root
-      .addResource('create-gym-app')
+      .addResource('has-access')
+      .addMethod('GET', new LambdaIntegration(tenantsLambda), {
+        requestParameters: {
+          'method.request.querystring.emailAddress': true,
+          'method.request.querystring.url': true,
+        },
+        requestValidatorOptions: {
+          validateRequestParameters: true,
+        },
+      })
+      .api.root.addResource('create-gym-app')
       .addMethod('POST', new LambdaIntegration(tenantsLambda), cognitoMethodOptions)
 
     api.root
