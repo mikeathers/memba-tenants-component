@@ -27,10 +27,19 @@ interface CreateGymAppProps {
   stage: string
   dbClient: DynamoDB.DocumentClient
   event: APIGatewayProxyEvent
+  isAdmin: boolean
+  tenantIdFromClaims: string
 }
 
 export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResult> => {
-  const {event, hostedZoneId, stage, dbClient} = props
+  const {isAdmin, tenantIdFromClaims, event, hostedZoneId, stage, dbClient} = props
+
+  if (!isAdmin) {
+    return {
+      body: 'Unauthorized',
+      statusCode: HttpStatusCode.FORBIDDEN,
+    }
+  }
 
   const tenantsTableName = process.env.TENANTS_TABLE_NAME ?? ''
   const appsTableName = process.env.APPS_TABLE_NAME ?? ''
@@ -45,6 +54,13 @@ export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResul
   }
 
   const item = JSON.parse(event.body) as CreateGymAppRequest
+
+  if (tenantIdFromClaims !== item.tenantId) {
+    return {
+      body: 'Unauthorized',
+      statusCode: HttpStatusCode.FORBIDDEN,
+    }
+  }
 
   validateCreateGymAppRequest(item)
 
@@ -101,7 +117,7 @@ export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResul
 
     const updatedTenant = await appendItemToList({
       itemId: item.tenantId,
-      itemToAppend: newApp,
+      itemToAppend: newApp.id,
       itemNameToUpdate: 'apps',
       tableName: tenantsTableName,
       dbClient,

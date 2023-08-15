@@ -1,6 +1,5 @@
 import {DynamoDB} from 'aws-sdk'
 import {getByPrimaryKey} from '../../aws/dynamodb'
-import {HttpStatusCode} from '../../types'
 
 interface RollbackCreateTenantProps {
   id: string
