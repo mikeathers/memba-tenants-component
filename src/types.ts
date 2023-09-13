@@ -129,3 +129,8 @@ export enum HttpStatusCode {
   UNPROCESSABLE_ENTITY = 422,
   INTERNAL_SERVER = 500,
 }
+
+export interface SecretResult {
+  api_key: string
+  username: string
+}

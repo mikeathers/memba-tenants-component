@@ -16,6 +16,7 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
   console.log('request:', JSON.stringify(event, null, 2))
   const hostedZoneId = process.env.HOSTED_ZONE_ID ?? ''
   const stage = process.env.STAGE ?? ''
+  const apiKey = event.headers['x-api-key'] ?? ''
 
   const result: APIGatewayProxyResult = {
     statusCode: HttpStatusCode.OK,
@@ -101,6 +102,7 @@ async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
             dbClient,
             isAdmin,
             tenantIdFromClaims,
+            apiKeyToCheck: apiKey,
           })
           result.body = JSON.stringify(response.body)
           result.statusCode = response.statusCode

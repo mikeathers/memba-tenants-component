@@ -1,15 +1,11 @@
 import axios, {AxiosError, AxiosResponse} from 'axios'
 import {SecretsManager} from 'aws-sdk'
+import {SecretResult} from '../../types'
 
 interface CheckIfTenantAdminExistsProps {
   usersApiUrl: string
   emailToCheck: string
   usersApiSecretName: string
-}
-
-interface SecretResult {
-  api_key: string
-  username: string
 }
 
 const httpClient = axios.create()
