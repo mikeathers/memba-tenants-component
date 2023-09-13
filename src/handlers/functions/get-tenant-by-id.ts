@@ -13,7 +13,7 @@ export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryRe
   const {id, dbClient, isAdmin, tenantIdFromClaims, apiKeyToCheck} = props
 
   const tableName = process.env.TENANTS_TABLE_NAME ?? ''
-  const usersApiSecretName = process.env.USERS_API_SECRET_NAME ?? ''
+  const tenantsApiSecretName = process.env.TENANTS_API_SECRET_NAME ?? ''
 
   const queryKey = 'id'
   const queryValue = id
@@ -21,7 +21,7 @@ export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryRe
   console.log({queryKey, queryValue, isAdmin, tenantIdFromClaims, apiKeyToCheck})
 
   const params = {
-    SecretId: usersApiSecretName,
+    SecretId: tenantsApiSecretName,
   }
 
   const secretsManager = new SecretsManager()

@@ -44,6 +44,10 @@ export class TenantsLambda {
     const usersApiUrl = stage === 'prod' ? CONFIG.USERS_API_URL : CONFIG.DEV_USERS_API_URL
     const usersApiSecretName =
       stage === 'prod' ? CONFIG.USERS_API_SECRET_NAME : CONFIG.DEV_USERS_API_SECRET_NAME
+    const tenantsApiSecretName =
+      stage === 'prod'
+        ? CONFIG.TENANTS_API_SECRET_NAME
+        : CONFIG.DEV_TENANTS_API_SECRET_NAME
     const userGroupRoleArn =
       stage === 'prod' ? CONFIG.USERS_GROUP_ROLE_ARN : CONFIG.DEV_USER_GROUP_ROLE_ARN
 
@@ -60,6 +64,7 @@ export class TenantsLambda {
         USERS_API_SECRET_NAME: usersApiSecretName,
         USERS_GROUP_ROLE_ARN: userGroupRoleArn,
         USER_POOL_ID: userPool.userPoolId,
+        TENANTS_API_SECRET_NAME: tenantsApiSecretName,
       },
       runtime: Runtime.NODEJS_16_X,
       reservedConcurrentExecutions: 1,

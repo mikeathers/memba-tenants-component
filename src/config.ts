@@ -11,7 +11,9 @@ interface ConfigProps {
   DEV_USERS_API_URL: string
   SHARED_EVENT_BUS_NAME: string
   DEV_USERS_API_SECRET_NAME: string
+  DEV_TENANTS_API_SECRET_NAME: string
   USERS_API_SECRET_NAME: string
+  TENANTS_API_SECRET_NAME: string
   DEV_USER_POOL_ARN: string
   PROD_USER_POOL_ARN: string
   USERS_GROUP_ROLE_ARN: string
@@ -31,7 +33,9 @@ const CONFIG: ConfigProps = {
   USERS_API_URL: 'https://users.memba.co.uk',
   DEV_USERS_API_URL: 'https://users.dev.memba.co.uk',
   DEV_USERS_API_SECRET_NAME: 'UsersApiSecret2148637E-4Wtmuz6by0ym',
+  DEV_TENANTS_API_SECRET_NAME: 'TenantsApiSecret17D4018F-nKLmRF8VYKDR',
   USERS_API_SECRET_NAME: 'UsersApiSecret2148637E-QyLf435WqwN1',
+  TENANTS_API_SECRET_NAME: 'TenantsApiSecret17D4018F-h7NuQvhBk9mS',
   DEV_USER_POOL_ARN:
     'arn:aws:cognito-idp:eu-west-2:544312030237:userpool/eu-west-2_O3gVXNPRu',
   PROD_USER_POOL_ARN:
