@@ -28,6 +28,9 @@ export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryRe
   const apiKey = await secretsManager.getSecretValue(params).promise()
   const parsedApiKey = JSON.parse(apiKey.SecretString || '') as SecretResult
 
+  console.log({parsedApiKey})
+  console.log('parsed api key', parsedApiKey.api_key)
+
   const isAuthorized = parsedApiKey.api_key === apiKeyToCheck
 
   console.log({isAuthorized})
