@@ -31,11 +31,11 @@ export const getTenantById = async (props: GetAccountByIdProps): Promise<QueryRe
   console.log({parsedApiKey})
   console.log('parsed api key', parsedApiKey.api_key)
 
-  const isAuthorized = parsedApiKey.api_key === apiKeyToCheck
+  const isAuthorizedByApiKey = parsedApiKey.api_key === apiKeyToCheck
 
-  console.log({isAuthorized})
+  console.log({isAuthorized: isAuthorizedByApiKey})
 
-  if (!isAuthorized || !isAdmin || tenantIdFromClaims !== id) {
+  if (!isAuthorizedByApiKey && (!isAdmin || tenantIdFromClaims !== id)) {
     return {
       body: 'Unauthorized',
       statusCode: HttpStatusCode.FORBIDDEN,
