@@ -13,16 +13,12 @@ export const getBasicApp = async (props: GetBasicAppProps): Promise<QueryResult>
   const parsedUrl = url.includes('https://') ? url : `https://${url}`
   const queryValue = parsedUrl
 
-  console.log({queryKey, queryValue})
-
   const queryResponse = await queryBySecondaryKey({
     queryKey,
     queryValue,
     tableName,
     dbClient,
   })
-
-  console.log('GET BY URL RESPONSE', queryResponse)
 
   if (queryResponse && queryResponse.length > 0) {
     const result = queryResponse[0] as unknown as MembaApp
