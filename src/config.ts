@@ -5,8 +5,6 @@ interface ConfigProps {
   AWS_ACCOUNT_ID_DEV: string
   DOMAIN_NAME: string
   DEV_DOMAIN_NAME: string
-  GYM_APP_DOMAIN_NAME: string
-  DEV_GYM_APP_DOMAIN_NAME: string
   API_URL: string
   DEV_API_URL: string
   USERS_API_URL: string
@@ -29,8 +27,6 @@ const CONFIG: ConfigProps = {
   AWS_ACCOUNT_ID_DEV: '544312030237',
   DOMAIN_NAME: 'memba.co.uk',
   DEV_DOMAIN_NAME: 'dev.memba.co.uk',
-  GYM_APP_DOMAIN_NAME: 'gym.memba.co.uk',
-  DEV_GYM_APP_DOMAIN_NAME: 'gym.dev.memba.co.uk',
   API_URL: 'tenants.memba.co.uk',
   DEV_API_URL: 'tenants.dev.memba.co.uk',
   SHARED_EVENT_BUS_NAME: 'SharedEventBus',
