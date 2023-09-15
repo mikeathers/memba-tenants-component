@@ -81,7 +81,8 @@ export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResul
     }
   }
 
-  const url = stage === 'prod' ? CONFIG.DOMAIN_NAME : CONFIG.DEV_DOMAIN_NAME
+  const url =
+    stage === 'prod' ? CONFIG.GYM_APP_DOMAIN_NAME : CONFIG.DEV_GYM_APP_DOMAIN_NAME
   const gymUrl = `${parsedGymName}.${url}`
 
   const newApp: MembaApp = {

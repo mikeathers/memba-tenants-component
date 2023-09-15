@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bd84e8b5-8de0-444e-9675-9aeef9e4c93f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/functions/get-tenant-by-id.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/get-tenant-by-id.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/functions/create-gym-app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/functions/create-gym-app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +47,7 @@
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/michaelatherton/Development/memba/memba-tenants-component/node_modules/typescript/lib&quot;,
+    &quot;ts.rename.search.for.js.occurrences&quot;: &quot;false&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -159,7 +161,8 @@
       <workItem from="1691050832612" duration="3010000" />
       <workItem from="1692000364269" duration="7971000" />
       <workItem from="1692697030190" duration="1952000" />
-      <workItem from="1694595866206" duration="3371000" />
+      <workItem from="1694595866206" duration="4429000" />
+      <workItem from="1694787268937" duration="1509000" />
     </task>
     <servers />
   </component>
