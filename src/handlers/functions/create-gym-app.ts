@@ -118,7 +118,7 @@ export const createGymApp = async (props: CreateGymAppProps): Promise<QueryResul
 
     const updatedTenant = await appendItemToList({
       itemId: item.tenantId,
-      itemToAppend: newApp.id,
+      itemToAppend: newApp,
       itemNameToUpdate: 'apps',
       tableName: tenantsTableName,
       dbClient,
